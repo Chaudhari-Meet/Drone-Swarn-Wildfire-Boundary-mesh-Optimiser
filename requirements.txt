@@ -1,51 +1,20 @@
-# Core visualization and GUI
-matplotlib
-numpy
-scipy
+# Core web framework
+flask==3.0.0
+flask-cors==4.0.0
 
-# GIS and geographic support
-shapely
-pyproj
-geopandas
-geopy
+# Core computation
+numpy==1.26.0
+matplotlib==3.8.0
+
+# GIS and geographic support (minimal)
+shapely==2.0.2
+geopy==2.4.0
 
 # Data processing
-pandas
-Pillow
-opencv-python
-
-# Satellite/Earth observation
-rasterio
-requests
-
-# Web and cloud
-flask
-flask-cors
+pandas==2.1.0
 
 # Data formats
-geojson
-xmltodict
-
-# Scientific computing
-scikit-image
-scikit-learn
-
-# ML/Detection (optional)
-# tensorflow
-# Keras
+geojson==3.1.0
 
 # Utilities
-python-dotenv
-PyYAML
-
-# Testing
-pytest
-pytest-cov
-
-# Logging
-python-json-logger
-
-# Real-time (optional for future drone integration)
-pymavlink
-paho-mqtt
-websockets
+python-dotenv==1.0.0
