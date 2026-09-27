@@ -1,0 +1,51 @@
+# Core visualization and GUI
+matplotlib
+numpy
+scipy
+
+# GIS and geographic support
+shapely
+pyproj
+geopandas
+geopy
+
+# Data processing
+pandas
+Pillow
+opencv-python
+
+# Satellite/Earth observation
+rasterio
+requests
+
+# Web and cloud
+flask
+flask-cors
+
+# Data formats
+geojson
+xmltodict
+
+# Scientific computing
+scikit-image
+scikit-learn
+
+# ML/Detection (optional)
+# tensorflow
+# Keras
+
+# Utilities
+python-dotenv
+PyYAML
+
+# Testing
+pytest
+pytest-cov
+
+# Logging
+python-json-logger
+
+# Real-time (optional for future drone integration)
+pymavlink
+paho-mqtt
+websockets

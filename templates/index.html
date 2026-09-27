@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload</title>
+    <style>
+        body { font-family: Arial; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .container { background: white; border-radius: 10px; padding: 40px; max-width: 600px; width: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+        h1 { text-align: center; color: #333; margin-bottom: 30px; }
+        .upload { border: 3px dashed #667eea; padding: 60px; text-align: center; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+        .upload:hover { border-color: #764ba2; background: #f9f9f9; }
+        .upload.drag { border-color: #764ba2; background: #f0f0f0; }
+        .upload-icon { font-size: 48px; margin-bottom: 20px; }
+        .upload-text { font-size: 18px; font-weight: bold; color: #333; margin-bottom: 10px; }
+        .upload-sub { color: #999; font-size: 14px; }
+        input[type="file"] { display: none; }
+        .types { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #999; }
+        .badge { display: inline-block; background: #e8e8e8; padding: 5px 10px; border-radius: 15px; margin: 3px; font-size: 11px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📁 File Upload & Analysis</h1>
+        <div class="upload" id="upload" ondrop="drop(event)" ondragover="dragover(event)" ondragleave="dragleave(event)" onclick="document.getElementById('fileInput').click()">
+            <div class="upload-icon">📤</div>
+            <div class="upload-text">Upload File</div>
+            <div class="upload-sub">Drag & drop or click to select</div>
+            <input type="file" id="fileInput" onchange="upload()">
+        </div>
+        <div class="types">
+            <div><strong>Supported:</strong></div>
+            <div>
+                <span class="badge">📷 Images (JPG, PNG)</span>
+                <span class="badge">📦 ZIP</span>
+                <span class="badge">📝 JSON, CSV, TXT</span>
+                <span class="badge">➕ Any File</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('upload');
+
+        function dragover(e) {
+            e.preventDefault();
+            uploadArea.classList.add('drag');
+        }
+
+        function dragleave(e) {
+            uploadArea.classList.remove('drag');
+        }
+
+        function drop(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('drag');
+            if (e.dataTransfer.files.length) {
+                document.getElementById('fileInput').files = e.dataTransfer.files;
+                upload();
+            }
+        }
+
+        function upload() {
+            const file = document.getElementById('fileInput').files[0];
+            if (!file) {
+                alert('Please select a file');
+                return;
+            }
+
+            // Show uploading status
+            uploadArea.innerHTML = '<div style="font-size: 18px; color: #667eea;"><div style="animation: spin 1s linear infinite; display: inline-block;">⏳</div> Uploading and analyzing...</div>';
+
+            const form = new FormData();
+            form.append('file', file);
+
+            fetch('/api/upload', { method: 'POST', body: form })
+                .then(r => r.json())
+                .then(d => {
+                    console.log('Upload response:', d);
+                    if (d.status === 'success') {
+                        uploadArea.innerHTML = '<div style="color: green; font-size: 18px;"><div>✓ Upload successful!</div><div style="font-size: 12px; margin-top: 10px;">Redirecting to dashboard...</div></div>';
+                        setTimeout(() => {
+                            window.location.href = '/dashboard?t=' + Date.now();
+                        }, 1000);
+                    } else {
+                        uploadArea.innerHTML = '<div style="color: red; font-size: 18px;"><div>✗ Error: ' + d.msg + '</div><div style="font-size: 12px; margin-top: 10px; cursor: pointer; color: #667eea;" onclick="location.reload()">Try again</div></div>';
+                    }
+                })
+                .catch(e => {
+                    console.error('Upload error:', e);
+                    uploadArea.innerHTML = '<div style="color: red; font-size: 18px;"><div>✗ Error: ' + e.message + '</div><div style="font-size: 12px; margin-top: 10px; cursor: pointer; color: #667eea;" onclick="location.reload()">Try again</div></div>';
+                });
+        }
+    </script>
+</body>
+</html>

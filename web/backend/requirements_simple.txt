@@ -1,0 +1,14 @@
+# Minimal dependencies for web application only
+# (Without heavy scientific packages)
+
+Flask==3.0.0
+Flask-CORS==4.0.0
+Flask-SocketIO==5.3.5
+python-socketio==5.9.0
+python-engineio==4.7.1
+PyJWT==2.8.0
+cryptography==41.0.4
+python-dotenv==1.0.0
+gunicorn==21.2.0
+requests==2.31.0
+PyYAML==6.0.1

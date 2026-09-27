@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildfire Drone Response System - Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --danger: #f44336;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --dark: #222;
+            --light: #f5f5f5;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--dark);
+            overflow: auto;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar h1 {
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .navbar-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .status-badge.healthy {
+            background: var(--success);
+            color: white;
+        }
+
+        .status-badge.error {
+            background: var(--danger);
+            color: white;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            margin-right: 5px;
+        }
+
+        .status-dot.online {
+            background: var(--success);
+        }
+
+        .status-dot.offline {
+            background: var(--danger);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 60px;
+            width: 220px;
+            height: calc(100vh - 60px);
+            background: white;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 99;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: var(--light);
+            border-left-color: var(--primary);
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .main-content {
+            margin-left: 220px;
+            margin-top: 20px;
+            padding: 0 20px;
+            padding-bottom: 40px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            opacity: 0.9;
+            text-transform: uppercase;
+        }
+
+        .map-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: 500px;
+            margin-bottom: 20px;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert.error {
+            background: #ffebee;
+            color: var(--danger);
+            border-left: 4px solid var(--danger);
+        }
+
+        .alert.success {
+            background: #e8f5e9;
+            color: var(--success);
+            border-left: 4px solid var(--success);
+        }
+
+        .alert.info {
+            background: #e3f2fd;
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            background: var(--primary);
+            color: white;
+        }
+
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 4px solid var(--light);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .drone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .drone-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .drone-id {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .stat-row {
+            font-size: 12px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .stat-label {
+            color: #999;
+        }
+
+        .stat-value {
+            font-weight: bold;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .status-indicator.armed {
+            background: var(--success);
+            color: white;
+        }
+
+        .status-indicator.idle {
+            background: var(--warning);
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--light);
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--light);
+        }
+
+        tr:hover {
+            background: var(--light);
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h1>🔥 Wildfire Drone Response System</h1>
+        <div class="navbar-right">
+            <div>
+                <span class="status-dot" id="status-dot"></span>
+                <span id="status-text">Checking...</span>
+            </div>
+            <div class="status-badge" id="health-badge" style="background: #ccc;">
+                Initializing...
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a class="menu-link active" data-page="dashboard">📊 Dashboard</a></li>
+            <li><a class="menu-link" data-page="drones">🚁 Drones</a></li>
+            <li><a class="menu-link" data-page="fire">🔥 Fire Data</a></li>
+            <li><a class="menu-link" data-page="map">🗺️ Map</a></li>
+            <li><a class="menu-link" data-page="missions">📋 Missions</a></li>
+            <li><a class="menu-link" data-page="detection">🔍 Detection</a></li>
+            <li><a class="menu-link" data-page="routes">🛣️ Routes</a></li>
+            <li><a class="menu-link" data-page="export">📤 Export</a></li>
+            <li><a href="boundary-draw.html">🎯 Boundary Draw</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page active">
+            <div id="dashboard-alert"></div>
+            <div class="grid">
+                <div class="metric-card">
+                    <div class="metric-label">🔥 Fire Area</div>
+                    <div class="metric-value" id="dashboard-area">-</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">📊 Mesh Nodes</div>
+                    <div class="metric-value" id="dashboard-nodes">-</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">🚁 Drones</div>
+                    <div class="metric-value" id="dashboard-drones">-</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">📈 Coverage</div>
+                    <div class="metric-value" id="dashboard-coverage">-</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>System Status</h2>
+                <div id="system-status"></div>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h2>Path Optimization</h2>
+                    <div class="stat-row">
+                        <span class="stat-label">Sequential Distance:</span>
+                        <span class="stat-value" id="dash-seq">-</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Optimized Distance:</span>
+                        <span class="stat-value" id="dash-opt">-</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction:</span>
+                        <span class="stat-value" id="dash-reduction">-</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Risk Assessment</h2>
+                    <div class="stat-row">
+                        <span class="stat-label">Fire Risk:</span>
+                        <span class="stat-value" id="dash-fire-risk">-</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Smoke Risk:</span>
+                        <span class="stat-value" id="dash-smoke-risk">-</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Heat Risk:</span>
+                        <span class="stat-value" id="dash-heat-risk">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Drones Page -->
+        <div id="drones" class="page">
+            <div class="card">
+                <h2>Drone Fleet</h2>
+                <div id="drones-alert"></div>
+                <button onclick="startSimulation()">▶ Start Simulation</button>
+                <button onclick="pauseSimulation()">⏸ Pause</button>
+                <button onclick="resetSimulation()">🔄 Reset</button>
+                <div class="drone-grid" id="drones-list" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+
+        <!-- Fire Data Page -->
+        <div id="fire" class="page">
+            <div class="card">
+                <h2>Fire Observations</h2>
+                <div id="fire-alert"></div>
+                <div id="fire-list"></div>
+            </div>
+        </div>
+
+        <!-- Map Page -->
+        <div id="map" class="page">
+            <div class="card">
+                <h2>Live Wildfire & Drone Map</h2>
+                <div class="map-container">
+                    <div id="mapbox"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Missions Page -->
+        <div id="missions" class="page">
+            <div class="card">
+                <h2>Mission Management</h2>
+                <button onclick="createNewMission()">+ Create Mission</button>
+                <table style="margin-top: 20px;" id="missions-table">
+                    <thead>
+                        <tr>
+                            <th>Mission ID</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Progress</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="missions-list"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Detection Page -->
+        <div id="detection" class="page">
+            <div class="card">
+                <h2>Animal & Person Detection - DEMO MODE</h2>
+                <div class="alert info">
+                    <span>ℹ️ These are SIMULATED DETECTIONS for demonstration purposes only. Not real observations.</span>
+                </div>
+                <div id="detections-list"></div>
+            </div>
+        </div>
+
+        <!-- Routes Page -->
+        <div id="routes" class="page">
+            <div class="card">
+                <h2>Firefighter Route Support - DECISION SUPPORT ONLY</h2>
+                <button onclick="generateRoute()">Generate Route Recommendation</button>
+                <div id="routes-list" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+
+        <!-- Export Page -->
+        <div id="export" class="page">
+            <div class="card">
+                <h2>Data Export & Reporting</h2>
+                <div class="grid">
+                    <button onclick="exportJSON()">📄 Export JSON</button>
+                    <button onclick="exportCSV()">📊 Export CSV</button>
+                    <button onclick="exportGeoJSON()">🗺️ Export GeoJSON</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000';
+        let mapInstance = null;
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            checkHealth();
+            loadDashboard();
+            setupMenuListeners();
+        });
+
+        // Menu listeners
+        function setupMenuListeners() {
+            document.querySelectorAll('.menu-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = e.target.dataset.page;
+                    showPage(page);
+                });
+            });
+        }
+
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
+            
+            document.getElementById(pageName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (pageName === 'dashboard') loadDashboard();
+            if (pageName === 'drones') loadDrones();
+            if (pageName === 'fire') loadFireData();
+            if (pageName === 'map') initMap();
+            if (pageName === 'missions') loadMissions();
+            if (pageName === 'detection') loadDetections();
+            if (pageName === 'routes') loadRoutes();
+        }
+
+        // Health Check
+        async function checkHealth() {
+            try {
+                const resp = await fetch(`${API_URL}/health`);
+                const data = await resp.json();
+                
+                const badge = document.getElementById('health-badge');
+                const dot = document.getElementById('status-dot');
+                const text = document.getElementById('status-text');
+                
+                if (data.status === 'healthy') {
+                    badge.textContent = '✓ System Healthy';
+                    badge.className = 'status-badge healthy';
+                    dot.className = 'status-dot online';
+                    text.textContent = 'Backend Connected';
+                } else {
+                    throw new Error('Backend not healthy');
+                }
+            } catch (error) {
+                const badge = document.getElementById('health-badge');
+                const dot = document.getElementById('status-dot');
+                const text = document.getElementById('status-text');
+                
+                badge.textContent = '✗ Backend Error';
+                badge.className = 'status-badge error';
+                dot.className = 'status-dot offline';
+                text.textContent = 'Backend Offline';
+                
+                document.getElementById('dashboard-alert').innerHTML = 
+                    `<div class="alert error">Backend Connection Failed: ${error.message}</div>`;
+            }
+            
+            // Check every 30 seconds
+            setTimeout(checkHealth, 30000);
+        }
+
+        // Dashboard
+        async function loadDashboard() {
+            try {
+                const resp = await fetch(`${API_URL}/api/dashboard`);
+                const json = await resp.json();
+                
+                if (json.status === 'success' && json.data) {
+                    const d = json.data;
+                    document.getElementById('dashboard-area').textContent = 
+                        d.fire?.area_hectares ? d.fire.area_hectares.toFixed(0) + ' ha' : '-';
+                    document.getElementById('dashboard-nodes').textContent = 
+                        d.mesh?.nodes || '-';
+                    document.getElementById('dashboard-drones').textContent = 
+                        d.drones?.count || '-';
+                    document.getElementById('dashboard-coverage').textContent = 
+                        d.mesh?.coverage_percent ? d.mesh.coverage_percent + '%' : '-';
+                    
+                    document.getElementById('dash-seq').textContent = 
+                        d.paths?.sequential_distance ? d.paths.sequential_distance.toFixed(1) + ' km' : '-';
+                    document.getElementById('dash-opt').textContent = 
+                        d.paths?.optimized_distance ? d.paths.optimized_distance.toFixed(1) + ' km' : '-';
+                    document.getElementById('dash-reduction').textContent = 
+                        d.paths?.reduction_percent ? d.paths.reduction_percent.toFixed(1) + '%' : '-';
+                    
+                    document.getElementById('dash-fire-risk').textContent = d.risk?.fire_risk || '-';
+                    document.getElementById('dash-smoke-risk').textContent = d.risk?.smoke_risk || '-';
+                    document.getElementById('dash-heat-risk').textContent = d.risk?.heat_risk || '-';
+                    
+                    const sysStatus = `
+                        <div class="stat-row"><span class="stat-label">Backend:</span> <span class="stat-value">${d.system?.backend}</span></div>
+                        <div class="stat-row"><span class="stat-label">Mode:</span> <span class="stat-value">${d.system?.mode}</span></div>
+                        <div class="stat-row"><span class="stat-label">Simulation:</span> <span class="stat-value">${d.system?.simulation ? 'RUNNING' : 'IDLE'}</span></div>
+                        <div class="stat-row"><span class="stat-label">Data Source:</span> <span class="stat-value">${d.fire?.data_source || 'demo'}</span></div>
+                    `;
+                    document.getElementById('system-status').innerHTML = sysStatus;
+                }
+            } catch (error) {
+                console.error('Dashboard error:', error);
+            }
+        }
+
+        // Drones
+        async function loadDrones() {
+            try {
+                const resp = await fetch(`${API_URL}/api/drones`);
+                const json = await resp.json();
+                
+                if (json.status === 'success' && json.data.drones) {
+                    let html = '';
+                    json.data.drones.forEach(d => {
+                        html += `
+                            <div class="drone-card">
+                                <div class="drone-id">🚁 Drone ${d.drone_id}</div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Status:</span>
+                                    <span class="stat-value">${d.status}</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Battery:</span>
+                                    <span class="stat-value">${d.battery}%</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Altitude:</span>
+                                    <span class="stat-value">${d.altitude}m</span>
+                                </div>
+                                <span class="status-indicator ${d.armed ? 'armed' : 'idle'}">
+                                    ${d.armed ? '✓ ARMED' : '○ IDLE'}
+                                </span>
+                            </div>
+                        `;
+                    });
+                    document.getElementById('drones-list').innerHTML = html;
+                }
+            } catch (error) {
+                document.getElementById('drones-alert').innerHTML = 
+                    `<div class="alert error">Error loading drones: ${error.message}</div>`;
+            }
+        }
+
+        // Fire Data
+        async function loadFireData() {
+            try {
+                const resp = await fetch(`${API_URL}/api/fires`);
+                const json = await resp.json();
+                
+                if (json.status === 'success' && json.data.fires) {
+                    let html = '';
+                    json.data.fires.forEach(f => {
+                        html += `
+                            <div class="card">
+                                <h3>${f.name}</h3>
+                                <div class="stat-row">
+                                    <span class="stat-label">Area:</span>
+                                    <span class="stat-value">${f.area_hectares} hectares</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Data Source:</span>
+                                    <span class="stat-value">${f.data_source}</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Observations:</span>
+                                    <span class="stat-value">${f.observations?.length || 0}</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    document.getElementById('fire-list').innerHTML = html;
+                }
+            } catch (error) {
+                document.getElementById('fire-alert').innerHTML = 
+                    `<div class="alert error">Error loading fire data: ${error.message}</div>`;
+            }
+        }
+
+        // Map
+        async function initMap() {
+            if (mapInstance) return;
+            
+            mapInstance = L.map('mapbox').setView([35.05, 100.02], 8);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapInstance);
+            
+            // Load fire data
+            try {
+                const resp = await fetch(`${API_URL}/api/fires`);
+                const json = await resp.json();
+                
+                if (json.data && json.data.fires) {
+                    json.data.fires.forEach(f => {
+                        // Draw boundary
+                        if (f.boundary) {
+                            L.polygon(f.boundary, {
+                                color: '#f44336',
+                                weight: 2,
+                                opacity: 0.7
+                            }).addTo(mapInstance).bindPopup(f.name);
+                        }
+                        
+                        // Draw observations
+                        if (f.observations) {
+                            f.observations.forEach(obs => {
+                                L.circleMarker([obs.latitude, obs.longitude], {
+                                    radius: 6,
+                                    fillColor: '#ff9800',
+                                    color: '#fff',
+                                    weight: 2,
+                                    opacity: 1,
+                                    fillOpacity: 0.8
+                                }).addTo(mapInstance).bindPopup(`${obs.intensity}°C`);
+                            });
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Map error:', error);
+            }
+        }
+
+        // Missions
+        async function loadMissions() {
+            try {
+                const resp = await fetch(`${API_URL}/api/missions`);
+                const json = await resp.json();
+                
+                if (json.data.missions && json.data.missions.length > 0) {
+                    let html = '';
+                    json.data.missions.forEach(m => {
+                        html += `
+                            <tr>
+                                <td>${m.id}</td>
+                                <td>${m.type}</td>
+                                <td>${m.status}</td>
+                                <td>${m.progress}%</td>
+                                <td><button onclick="executeMission('${m.id}')">Execute</button></td>
+                            </tr>
+                        `;
+                    });
+                    document.getElementById('missions-list').innerHTML = html;
+                } else {
+                    document.getElementById('missions-list').innerHTML = 
+                        '<tr><td colspan="5" class="no-data">No missions created yet</td></tr>';
+                }
+            } catch (error) {
+                console.error('Missions error:', error);
+            }
+        }
+
+        // Detections
+        async function loadDetections() {
+            try {
+                const animals = await fetch(`${API_URL}/api/detections/animal`).then(r => r.json());
+                const persons = await fetch(`${API_URL}/api/detections/person`).then(r => r.json());
+                
+                let html = `
+                    <h3>🦌 Possible Animals (DEMO)</h3>
+                    ${animals.data?.animals?.map(a => `
+                        <div class="card">
+                            <strong>Confidence: ${(a.confidence * 100).toFixed(1)}%</strong>
+                            <p>Species: ${a.species}</p>
+                            <p>Location: ${a.location.lat.toFixed(4)}, ${a.location.lon.toFixed(4)}</p>
+                            <p style="color: #999; font-size: 11px;">Note: ${a.note}</p>
+                        </div>
+                    `).join('') || '<p class="no-data">No detections</p>'}
+                    
+                    <h3 style="margin-top: 20px;">👤 Possible People (DEMO)</h3>
+                    ${persons.data?.persons?.map(p => `
+                        <div class="card">
+                            <strong>Confidence: ${(p.confidence * 100).toFixed(1)}%</strong>
+                            <p>Location: ${p.location.lat.toFixed(4)}, ${p.location.lon.toFixed(4)}</p>
+                            <p style="color: #999; font-size: 11px;">Note: ${p.note}</p>
+                        </div>
+                    `).join('') || '<p class="no-data">No detections</p>'}
+                `;
+                
+                document.getElementById('detections-list').innerHTML = html;
+            } catch (error) {
+                console.error('Detection error:', error);
+            }
+        }
+
+        // Routes
+        async function loadRoutes() {
+            document.getElementById('routes-list').innerHTML = '';
+        }
+
+        async function generateRoute() {
+            try {
+                const resp = await fetch(`${API_URL}/api/routes/firefighter`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({})
+                });
+                const json = await resp.json();
+                
+                if (json.data) {
+                    const r = json.data;
+                    const html = `
+                        <div class="card">
+                            <strong>⚠️ ${r.type}</strong>
+                            <p><strong>Note:</strong> ${r.note}</p>
+                            <div class="stat-row">
+                                <span class="stat-label">Distance:</span>
+                                <span class="stat-value">${r.distance_km} km</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Time:</span>
+                                <span class="stat-value">${r.estimated_time_min} min</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Risk Score:</span>
+                                <span class="stat-value">${r.risk_score}/10</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Fire Exposure:</span>
+                                <span class="stat-value">${r.fire_exposure}</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Smoke Exposure:</span>
+                                <span class="stat-value">${r.smoke_exposure}</span>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('routes-list').innerHTML = html;
+                }
+            } catch (error) {
+                alert('Error generating route: ' + error.message);
+            }
+        }
+
+        // Mission functions
+        function createNewMission() {
+            alert('Mission created via API: POST /api/missions');
+            loadMissions();
+        }
+
+        function executeMission(id) {
+            alert(`Executing mission ${id}`);
+        }
+
+        // Simulation functions
+        function startSimulation() {
+            alert('Simulation started');
+        }
+
+        function pauseSimulation() {
+            alert('Simulation paused');
+        }
+
+        function resetSimulation() {
+            alert('Simulation reset');
+        }
+
+        // Export functions
+        function exportJSON() {
+            fetch(`${API_URL}/api/export/json`)
+                .then(r => r.json())
+                .then(d => {
+                    const blob = new Blob([JSON.stringify(d.data, null, 2)], {type: 'application/json'});
+                    download(blob, 'wildfire-data.json');
+                });
+        }
+
+        function exportCSV() {
+            fetch(`${API_URL}/api/export/csv`)
+                .then(r => r.json())
+                .then(d => {
+                    const blob = new Blob([d.data], {type: 'text/csv'});
+                    download(blob, 'wildfire-observations.csv');
+                });
+        }
+
+        function exportGeoJSON() {
+            fetch(`${API_URL}/api/export/geojson`)
+                .then(r => r.json())
+                .then(d => {
+                    const blob = new Blob([JSON.stringify(d.data, null, 2)], {type: 'application/geo+json'});
+                    download(blob, 'wildfire-boundary.geojson');
+                });
+        }
+
+        function download(blob, filename) {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>

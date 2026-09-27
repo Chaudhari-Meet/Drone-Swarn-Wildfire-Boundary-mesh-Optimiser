@@ -1,0 +1,1033 @@
+2026-09-25 19:10:08,704 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 19:10:08,705 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 19:10:08,705 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 19:10:08,706 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 19:10:09,324 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 19:10:09,325 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 19:10:09,326 - WildfireResponseSystem - INFO - Fire area calculated: 1263858.14 hectares
+2026-09-25 19:10:09,327 - WildfireResponseSystem - WARNING - No mesh nodes generated
+2026-09-25 19:46:00,915 - flask_backend - INFO - ======================================================================
+2026-09-25 19:46:00,916 - flask_backend - INFO - WILDFIRE DRONE SYSTEM - WEB BACKEND
+2026-09-25 19:46:00,916 - flask_backend - INFO - ======================================================================
+2026-09-25 19:46:00,917 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 19:46:00,917 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 19:46:00,917 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 19:46:00,917 - flask_backend - INFO - System initialized successfully
+2026-09-25 19:46:00,918 - flask_backend - INFO - Starting Flask server with SocketIO support...
+2026-09-25 19:46:01,862 - flask_backend - INFO - ======================================================================
+2026-09-25 19:46:01,863 - flask_backend - INFO - WILDFIRE DRONE SYSTEM - WEB BACKEND
+2026-09-25 19:46:01,863 - flask_backend - INFO - ======================================================================
+2026-09-25 19:46:01,864 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 19:46:01,864 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 19:46:01,864 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 19:46:01,864 - flask_backend - INFO - System initialized successfully
+2026-09-25 19:46:01,865 - flask_backend - INFO - Starting Flask server with SocketIO support...
+2026-09-25 19:56:59,858 - flask_backend - INFO - ======================================================================
+2026-09-25 19:56:59,858 - flask_backend - INFO - WILDFIRE DRONE SYSTEM - WEB BACKEND
+2026-09-25 19:56:59,858 - flask_backend - INFO - ======================================================================
+2026-09-25 19:56:59,859 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 19:56:59,859 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 19:56:59,859 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 19:56:59,859 - flask_backend - INFO - System initialized successfully
+2026-09-25 19:56:59,859 - flask_backend - INFO - Starting Flask server with SocketIO support...
+2026-09-25 19:58:48,969 - flask_backend - INFO - ======================================================================
+2026-09-25 19:58:48,969 - flask_backend - INFO - WILDFIRE DRONE SYSTEM - WEB BACKEND
+2026-09-25 19:58:48,970 - flask_backend - INFO - ======================================================================
+2026-09-25 19:58:48,971 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 19:58:48,971 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 19:58:48,971 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 19:58:48,971 - flask_backend - INFO - System initialized successfully
+2026-09-25 19:58:48,971 - flask_backend - INFO - Starting Flask server with SocketIO support...
+2026-09-25 19:58:49,784 - flask_backend - INFO - ======================================================================
+2026-09-25 19:58:49,784 - flask_backend - INFO - WILDFIRE DRONE SYSTEM - WEB BACKEND
+2026-09-25 19:58:49,784 - flask_backend - INFO - ======================================================================
+2026-09-25 19:58:49,785 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 19:58:49,785 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 19:58:49,785 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 19:58:49,785 - flask_backend - INFO - System initialized successfully
+2026-09-25 19:58:49,786 - flask_backend - INFO - Starting Flask server with SocketIO support...
+2026-09-25 19:59:11,080 - flask_backend - INFO - Client connected: p1Vao3VbYk_BMiAMAAAC
+2026-09-25 19:59:18,360 - flask_backend - INFO - Starting full mission: 10 drones, 5m spacing
+2026-09-25 19:59:18,360 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 19:59:18,360 - WildfireResponseSystem - INFO - STARTING FULL WILDFIRE RESPONSE MISSION
+2026-09-25 19:59:18,360 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 19:59:18,361 - WildfireResponseSystem - INFO - 
+[1/7] Loading fire data...
+2026-09-25 19:59:18,361 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 19:59:18,517 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 19:59:18,519 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 19:59:18,519 - WildfireResponseSystem - INFO - 
+[2/7] Processing fire data...
+2026-09-25 19:59:18,520 - WildfireResponseSystem - INFO - Fire area calculated: 1840191.31 hectares
+2026-09-25 19:59:18,520 - WildfireResponseSystem - INFO - 
+[3/7] Generating mesh coverage (spacing=5)...
+2026-09-25 19:59:18,528 - WildfireResponseSystem - WARNING - No mesh nodes generated
+2026-09-25 19:59:39,769 - flask_backend - INFO - Client disconnected: p1Vao3VbYk_BMiAMAAAC
+2026-09-25 19:59:49,716 - flask_backend - INFO - Client connected: kdele7SfosUoHo5DAAAF
+2026-09-25 19:59:55,963 - flask_backend - INFO - Starting full mission: 10 drones, 5m spacing
+2026-09-25 19:59:55,963 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 19:59:55,963 - WildfireResponseSystem - INFO - STARTING FULL WILDFIRE RESPONSE MISSION
+2026-09-25 19:59:55,964 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 19:59:55,964 - WildfireResponseSystem - INFO - 
+[1/7] Loading fire data...
+2026-09-25 19:59:55,964 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 19:59:55,968 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 19:59:55,969 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 19:59:55,970 - WildfireResponseSystem - INFO - 
+[2/7] Processing fire data...
+2026-09-25 19:59:55,971 - WildfireResponseSystem - INFO - Fire area calculated: 2063555.67 hectares
+2026-09-25 19:59:55,971 - WildfireResponseSystem - INFO - 
+[3/7] Generating mesh coverage (spacing=5)...
+2026-09-25 19:59:55,971 - WildfireResponseSystem - WARNING - No mesh nodes generated
+2026-09-25 20:02:03,873 - flask_backend - INFO - ======================================================================
+2026-09-25 20:02:03,874 - flask_backend - INFO - WILDFIRE DRONE SYSTEM - WEB BACKEND
+2026-09-25 20:02:03,874 - flask_backend - INFO - ======================================================================
+2026-09-25 20:02:03,874 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:02:03,874 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:02:03,874 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:02:03,874 - flask_backend - INFO - System initialized successfully
+2026-09-25 20:02:03,874 - flask_backend - INFO - Starting Flask server with SocketIO support...
+2026-09-25 20:02:04,727 - flask_backend - INFO - ======================================================================
+2026-09-25 20:02:04,727 - flask_backend - INFO - WILDFIRE DRONE SYSTEM - WEB BACKEND
+2026-09-25 20:02:04,727 - flask_backend - INFO - ======================================================================
+2026-09-25 20:02:04,728 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:02:04,728 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:02:04,728 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:02:04,728 - flask_backend - INFO - System initialized successfully
+2026-09-25 20:02:04,729 - flask_backend - INFO - Starting Flask server with SocketIO support...
+2026-09-25 20:04:11,941 - flask_backend - INFO - Client connected: 1VPdwBmcoTFK_EQ5AAAI
+2026-09-25 20:04:22,403 - flask_backend - INFO - Client disconnected: 1VPdwBmcoTFK_EQ5AAAI
+2026-09-25 20:04:25,409 - flask_backend - INFO - Client connected: slaTun57bZFpPMCfAAAL
+2026-09-25 20:04:29,911 - flask_backend - INFO - Starting full mission: 10 drones, 5m spacing
+2026-09-25 20:04:29,911 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 20:04:29,912 - WildfireResponseSystem - INFO - STARTING FULL WILDFIRE RESPONSE MISSION
+2026-09-25 20:04:29,912 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 20:04:29,912 - WildfireResponseSystem - INFO - 
+[1/7] Loading fire data...
+2026-09-25 20:04:29,913 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 20:04:29,919 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 20:04:29,919 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 20:04:29,920 - WildfireResponseSystem - INFO - 
+[2/7] Processing fire data...
+2026-09-25 20:04:29,921 - WildfireResponseSystem - INFO - Fire area calculated: 2032286.30 hectares
+2026-09-25 20:04:29,921 - WildfireResponseSystem - INFO - 
+[3/7] Generating mesh coverage (spacing=5)...
+2026-09-25 20:04:29,922 - WildfireResponseSystem - WARNING - No mesh nodes generated
+2026-09-25 20:04:40,872 - flask_backend - INFO - Client connected: YBtaze7WM9vYkESPAAAO
+2026-09-25 20:04:44,420 - flask_backend - INFO - Client disconnected: YBtaze7WM9vYkESPAAAO
+2026-09-25 20:04:46,331 - flask_backend - INFO - Client connected: lrVq5VVF-HJq7RwEAAAR
+2026-09-25 20:04:51,275 - flask_backend - INFO - Client disconnected: kdele7SfosUoHo5DAAAF
+2026-09-25 20:04:55,828 - flask_backend - INFO - Starting full mission: 10 drones, 5m spacing
+2026-09-25 20:04:55,828 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 20:04:55,828 - WildfireResponseSystem - INFO - STARTING FULL WILDFIRE RESPONSE MISSION
+2026-09-25 20:04:55,828 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 20:04:55,829 - WildfireResponseSystem - INFO - 
+[1/7] Loading fire data...
+2026-09-25 20:04:55,829 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 20:04:55,831 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 20:04:55,832 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 20:04:55,832 - WildfireResponseSystem - INFO - 
+[2/7] Processing fire data...
+2026-09-25 20:04:55,832 - WildfireResponseSystem - INFO - Fire area calculated: 1542610.56 hectares
+2026-09-25 20:04:55,833 - WildfireResponseSystem - INFO - 
+[3/7] Generating mesh coverage (spacing=5)...
+2026-09-25 20:04:55,834 - WildfireResponseSystem - WARNING - No mesh nodes generated
+2026-09-25 20:05:19,928 - flask_backend - INFO - Client disconnected: slaTun57bZFpPMCfAAAL
+2026-09-25 20:05:48,090 - flask_backend - INFO - Client disconnected: lrVq5VVF-HJq7RwEAAAR
+2026-09-25 20:10:29,677 - flask_backend - INFO - ======================================================================
+2026-09-25 20:10:29,677 - flask_backend - INFO - WILDFIRE DRONE SYSTEM - WEB BACKEND
+2026-09-25 20:10:29,678 - flask_backend - INFO - ======================================================================
+2026-09-25 20:10:29,678 - flask_backend - INFO - ======================================================================
+2026-09-25 20:10:29,678 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:10:29,678 - flask_backend - INFO - WILDFIRE DRONE SYSTEM - WEB BACKEND
+2026-09-25 20:10:29,679 - flask_backend - INFO - ======================================================================
+2026-09-25 20:10:29,679 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:10:29,679 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:10:29,679 - flask_backend - INFO - System initialized successfully
+2026-09-25 20:10:29,679 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:10:29,679 - flask_backend - INFO - Starting Flask server with SocketIO support...
+2026-09-25 20:10:29,679 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:10:29,679 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:10:29,679 - flask_backend - INFO - System initialized successfully
+2026-09-25 20:10:29,679 - flask_backend - INFO - Starting Flask server with SocketIO support...
+2026-09-25 20:10:42,151 - flask_backend - INFO - ======================================================================
+2026-09-25 20:10:42,151 - flask_backend - INFO - WILDFIRE DRONE SYSTEM - WEB BACKEND
+2026-09-25 20:10:42,152 - flask_backend - INFO - ======================================================================
+2026-09-25 20:10:42,152 - flask_backend - ERROR - System initialization failed: Can't instantiate abstract class SimulationDataSource without an implementation for abstract methods 'get_data_source_info', 'validate_data'
+2026-09-25 20:10:42,153 - flask_backend - ERROR - Failed to initialize system
+2026-09-25 20:10:42,205 - flask_backend - INFO - ======================================================================
+2026-09-25 20:10:42,206 - flask_backend - INFO - WILDFIRE DRONE SYSTEM - WEB BACKEND
+2026-09-25 20:10:42,206 - flask_backend - INFO - ======================================================================
+2026-09-25 20:10:42,206 - flask_backend - ERROR - System initialization failed: Can't instantiate abstract class SimulationDataSource without an implementation for abstract methods 'get_data_source_info', 'validate_data'
+2026-09-25 20:10:42,206 - flask_backend - ERROR - Failed to initialize system
+2026-09-25 20:22:49,406 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:22:49,407 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:22:49,407 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:22:49,407 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 20:22:49,410 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 20:22:49,410 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 20:22:49,410 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:22:49,410 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:22:49,411 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:22:49,411 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:22:49,411 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:22:49,411 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:22:49,411 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 20:22:49,411 - WildfireResponseSystem - INFO - STARTING FULL WILDFIRE RESPONSE MISSION
+2026-09-25 20:22:49,411 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 20:22:49,411 - WildfireResponseSystem - INFO - 
+[1/7] Loading fire data...
+2026-09-25 20:22:49,411 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 20:22:49,413 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 20:22:49,414 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 20:22:49,414 - WildfireResponseSystem - INFO - 
+[2/7] Processing fire data...
+2026-09-25 20:22:49,415 - WildfireResponseSystem - INFO - Fire area calculated: 2984396.93 hectares
+2026-09-25 20:22:49,415 - WildfireResponseSystem - INFO - 
+[3/7] Generating mesh coverage (spacing=10)...
+2026-09-25 20:22:49,415 - WildfireResponseSystem - WARNING - No mesh nodes generated
+2026-09-25 20:23:56,481 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:23:56,482 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:23:56,482 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:23:56,482 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 20:23:56,484 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 20:23:56,484 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 20:23:56,484 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:23:56,485 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:23:56,485 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:23:56,485 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:23:56,485 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:23:56,485 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:23:56,485 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 20:23:56,487 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 20:23:56,487 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 20:24:59,676 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:24:59,676 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:24:59,677 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:24:59,677 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 20:24:59,679 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 20:24:59,680 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 20:24:59,680 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:24:59,680 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:24:59,680 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:24:59,681 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:24:59,681 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:24:59,681 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:24:59,681 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 20:24:59,683 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 20:24:59,683 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 20:25:14,928 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:25:14,929 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:25:14,929 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:25:36,111 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:25:36,111 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:25:36,111 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:25:36,113 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 20:25:36,139 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 20:25:36,140 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 20:25:36,140 - WildfireResponseSystem - INFO - Fire area calculated: 1917063.05 hectares
+2026-09-25 20:25:36,141 - WildfireResponseSystem - WARNING - No mesh nodes generated
+2026-09-25 20:26:03,732 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 20:26:03,732 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 20:26:03,732 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 20:26:03,733 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 20:26:03,756 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 20:26:03,756 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 20:26:03,757 - WildfireResponseSystem - INFO - Fire area calculated: 1807900.04 hectares
+2026-09-25 21:34:38,248 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:34:38,249 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:34:38,249 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:34:38,249 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:34:38,252 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:34:38,253 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:34:38,253 - WildfireResponseSystem - INFO - Fire area calculated: 2156092.20 hectares
+2026-09-25 21:35:01,593 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:35:01,594 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:35:01,594 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:35:01,594 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:35:01,595 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:35:01,595 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:35:01,595 - WildfireResponseSystem - INFO - Fire area calculated: 2501860.48 hectares
+2026-09-25 21:36:49,471 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:36:49,471 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:36:49,471 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:36:49,471 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:36:49,502 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:36:49,503 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:36:49,503 - WildfireResponseSystem - INFO - Fire area calculated: 2811404.39 hectares
+2026-09-25 21:36:49,521 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:36:49,521 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:36:49,521 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:36:49,522 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:36:49,523 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:36:49,523 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:36:49,524 - WildfireResponseSystem - INFO - Fire area calculated: 1344135.19 hectares
+2026-09-25 21:36:49,524 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:36:49,525 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:36:49,525 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:36:49,525 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:36:49,527 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:36:49,527 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:36:49,528 - WildfireResponseSystem - INFO - Fire area calculated: 1498106.23 hectares
+2026-09-25 21:36:49,528 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:36:49,528 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:36:49,528 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:36:49,529 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:36:49,531 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:36:49,531 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:36:49,532 - WildfireResponseSystem - INFO - Fire area calculated: 1985640.99 hectares
+2026-09-25 21:36:49,534 - WildfireResponseSystem - WARNING - No mesh nodes generated
+2026-09-25 21:36:49,534 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:36:49,534 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:36:49,534 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:36:49,535 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:36:49,537 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:36:49,537 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:36:49,537 - WildfireResponseSystem - INFO - Fire area calculated: 1591870.53 hectares
+2026-09-25 21:36:49,538 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:36:49,538 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:36:49,538 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:36:49,538 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:36:49,541 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:36:49,541 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:36:49,541 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:36:49,541 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:36:49,541 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:36:49,541 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:36:49,543 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:36:49,543 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:36:49,543 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:36:49,543 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:36:49,543 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:36:49,543 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:36:49,545 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:36:49,545 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:36:49,546 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:36:49,546 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:36:49,546 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:36:49,546 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:36:49,547 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:36:49,548 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:36:49,548 - WildfireResponseSystem - INFO - Fire area calculated: 1722762.28 hectares
+2026-09-25 21:36:49,548 - WildfireResponseSystem - INFO - Fire area calculated: 1722762.28 hectares
+2026-09-25 21:36:49,549 - WildfireResponseSystem - INFO - Fire area calculated: 1722762.28 hectares
+2026-09-25 21:37:54,355 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:37:54,355 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:37:54,355 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:37:54,355 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:37:54,377 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:37:54,377 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:37:54,378 - WildfireResponseSystem - INFO - Fire area calculated: 2938149.83 hectares
+2026-09-25 21:37:54,391 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:37:54,391 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:37:54,391 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:37:54,391 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:37:54,392 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:37:54,392 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:37:54,392 - WildfireResponseSystem - INFO - Fire area calculated: 2110289.81 hectares
+2026-09-25 21:37:54,393 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:37:54,393 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:37:54,393 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:37:54,393 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:37:54,394 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:37:54,394 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:37:54,394 - WildfireResponseSystem - INFO - Fire area calculated: 2476386.87 hectares
+2026-09-25 21:37:54,394 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:37:54,394 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:37:54,394 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:37:54,394 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:37:54,396 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:37:54,396 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:37:54,396 - WildfireResponseSystem - INFO - Fire area calculated: 3213557.81 hectares
+2026-09-25 21:37:54,396 - WildfireResponseSystem - WARNING - No mesh nodes generated
+2026-09-25 21:37:54,396 - WildfireResponseSystem - ERROR - No mesh nodes to allocate
+2026-09-25 21:37:54,396 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:37:54,396 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:37:54,396 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:37:54,396 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:37:54,399 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:37:54,399 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:37:54,400 - WildfireResponseSystem - INFO - Fire area calculated: 3466048.16 hectares
+2026-09-25 21:37:54,400 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:37:54,400 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:37:54,400 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:37:54,400 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:37:54,401 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:37:54,402 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:37:54,402 - WildfireResponseSystem - INFO - Fire area calculated: 2065141.57 hectares
+2026-09-25 21:37:54,402 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:37:54,402 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:37:54,402 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:37:54,402 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:37:54,404 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:37:54,404 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:37:54,404 - WildfireResponseSystem - INFO - Fire area calculated: 2582711.41 hectares
+2026-09-25 21:37:54,404 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:37:54,404 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:37:54,404 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:37:54,404 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:37:54,405 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:37:54,406 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:37:54,406 - WildfireResponseSystem - INFO - Fire area calculated: 849249.86 hectares
+2026-09-25 21:37:54,406 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:37:54,406 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:37:54,406 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:37:54,406 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:37:54,407 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:37:54,407 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:37:54,407 - WildfireResponseSystem - INFO - Fire area calculated: 2011973.11 hectares
+2026-09-25 21:37:54,408 - WildfireResponseSystem - INFO - Fire area calculated: 2011973.11 hectares
+2026-09-25 21:37:54,408 - WildfireResponseSystem - INFO - Fire area calculated: 2011973.11 hectares
+2026-09-25 21:38:12,586 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:12,586 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:12,586 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:12,586 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:12,610 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:12,610 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:12,611 - WildfireResponseSystem - INFO - Fire area calculated: 2561183.04 hectares
+2026-09-25 21:38:12,621 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:12,621 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:12,621 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:12,621 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:12,622 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:12,623 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:12,623 - WildfireResponseSystem - INFO - Fire area calculated: 2522152.32 hectares
+2026-09-25 21:38:12,623 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:12,623 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:12,623 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:12,623 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:12,624 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:12,624 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:12,624 - WildfireResponseSystem - INFO - Fire area calculated: 1790537.28 hectares
+2026-09-25 21:38:12,625 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:12,625 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:12,625 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:12,625 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:12,627 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:12,628 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:12,628 - WildfireResponseSystem - INFO - Fire area calculated: 3239277.40 hectares
+2026-09-25 21:38:12,628 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 21:38:12,628 - WildfireResponseSystem - INFO - STARTING FULL WILDFIRE RESPONSE MISSION
+2026-09-25 21:38:12,628 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 21:38:12,628 - WildfireResponseSystem - INFO - 
+[1/7] Loading fire data...
+2026-09-25 21:38:12,628 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:12,629 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:12,630 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:12,630 - WildfireResponseSystem - INFO - 
+[2/7] Processing fire data...
+2026-09-25 21:38:12,630 - WildfireResponseSystem - INFO - Fire area calculated: 1016057.08 hectares
+2026-09-25 21:38:12,630 - WildfireResponseSystem - INFO - 
+[3/7] Generating mesh coverage (spacing=50)...
+2026-09-25 21:38:12,630 - WildfireResponseSystem - WARNING - No mesh nodes generated
+2026-09-25 21:38:12,630 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:12,630 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:12,631 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:12,631 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:12,632 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:12,632 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:12,632 - WildfireResponseSystem - INFO - Fire area calculated: 1132449.77 hectares
+2026-09-25 21:38:12,632 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:12,632 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:12,632 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:12,632 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:12,634 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:12,634 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:12,634 - WildfireResponseSystem - INFO - Fire area calculated: 2135064.36 hectares
+2026-09-25 21:38:12,634 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:12,634 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:12,634 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:12,634 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:12,635 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:12,636 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:12,636 - WildfireResponseSystem - INFO - Fire area calculated: 3248390.76 hectares
+2026-09-25 21:38:12,636 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:12,636 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:12,636 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:12,636 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:12,638 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:12,638 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:12,638 - WildfireResponseSystem - INFO - Fire area calculated: 1459109.62 hectares
+2026-09-25 21:38:12,638 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:12,638 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:12,639 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:12,639 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:12,640 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:12,640 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:12,640 - WildfireResponseSystem - INFO - Fire area calculated: 2603407.62 hectares
+2026-09-25 21:38:12,640 - WildfireResponseSystem - INFO - Fire area calculated: 2603407.62 hectares
+2026-09-25 21:38:12,640 - WildfireResponseSystem - INFO - Fire area calculated: 2603407.62 hectares
+2026-09-25 21:38:19,883 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:19,883 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:19,883 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:19,883 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:19,908 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:19,908 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:19,909 - WildfireResponseSystem - INFO - Fire area calculated: 1641509.99 hectares
+2026-09-25 21:38:19,925 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:19,925 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:19,925 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:19,925 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:19,927 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:19,927 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:19,927 - WildfireResponseSystem - INFO - Fire area calculated: 2868346.74 hectares
+2026-09-25 21:38:19,928 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:19,928 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:19,928 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:19,929 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:19,930 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:19,930 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:19,930 - WildfireResponseSystem - INFO - Fire area calculated: 2260590.12 hectares
+2026-09-25 21:38:19,931 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:19,931 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:19,931 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:19,931 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:19,933 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:19,933 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:19,934 - WildfireResponseSystem - INFO - Fire area calculated: 738796.44 hectares
+2026-09-25 21:38:19,934 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 21:38:19,934 - WildfireResponseSystem - INFO - STARTING FULL WILDFIRE RESPONSE MISSION
+2026-09-25 21:38:19,934 - WildfireResponseSystem - INFO - ============================================================
+2026-09-25 21:38:19,934 - WildfireResponseSystem - INFO - 
+[1/7] Loading fire data...
+2026-09-25 21:38:19,934 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:19,937 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:19,938 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:19,938 - WildfireResponseSystem - INFO - 
+[2/7] Processing fire data...
+2026-09-25 21:38:19,938 - WildfireResponseSystem - INFO - Fire area calculated: 2637451.46 hectares
+2026-09-25 21:38:19,939 - WildfireResponseSystem - INFO - 
+[3/7] Generating mesh coverage (spacing=50)...
+2026-09-25 21:38:19,939 - WildfireResponseSystem - WARNING - No mesh nodes generated
+2026-09-25 21:38:19,940 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:19,940 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:19,940 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:19,940 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:19,941 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:19,942 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:19,942 - WildfireResponseSystem - INFO - Fire area calculated: 2349805.66 hectares
+2026-09-25 21:38:19,943 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:19,943 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:19,943 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:19,944 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:19,945 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:19,946 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:19,946 - WildfireResponseSystem - INFO - Fire area calculated: 2244099.76 hectares
+2026-09-25 21:38:19,946 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:19,946 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:19,946 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:19,947 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:19,948 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:19,948 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:19,948 - WildfireResponseSystem - INFO - Fire area calculated: 1201811.86 hectares
+2026-09-25 21:38:19,948 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:19,949 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:19,949 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:19,949 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:19,950 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:19,951 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:19,951 - WildfireResponseSystem - INFO - Fire area calculated: 1614166.64 hectares
+2026-09-25 21:38:19,952 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:19,952 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:19,952 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:19,952 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:19,955 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:19,956 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:19,956 - WildfireResponseSystem - INFO - Fire area calculated: 2022260.45 hectares
+2026-09-25 21:38:19,957 - WildfireResponseSystem - INFO - Fire area calculated: 2022260.45 hectares
+2026-09-25 21:38:19,957 - WildfireResponseSystem - INFO - Fire area calculated: 2022260.45 hectares
+2026-09-25 21:38:51,400 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:51,400 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:51,401 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:51,411 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:51,453 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:51,454 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:51,454 - WildfireResponseSystem - INFO - Fire area calculated: 2250854.45 hectares
+2026-09-25 21:38:51,466 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:51,466 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:51,466 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:51,467 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:51,468 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:51,468 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:51,469 - WildfireResponseSystem - INFO - Fire area calculated: 2710882.98 hectares
+2026-09-25 21:38:51,469 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:51,469 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:51,469 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:51,469 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:51,471 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:51,471 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:51,472 - WildfireResponseSystem - INFO - Fire area calculated: 2402496.06 hectares
+2026-09-25 21:38:51,472 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:51,472 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:51,472 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:51,472 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:51,473 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:51,473 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:51,474 - WildfireResponseSystem - INFO - Fire area calculated: 1060560.11 hectares
+2026-09-25 21:38:51,474 - WildfireResponseSystem - INFO - Risk analysis complete for 12 zones
+2026-09-25 21:38:51,474 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:51,474 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:51,474 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:51,474 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:51,475 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:51,476 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:51,476 - WildfireResponseSystem - INFO - Fire area calculated: 1814148.37 hectares
+2026-09-25 21:38:51,476 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:51,476 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:51,476 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:51,476 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:51,477 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:51,478 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:51,478 - WildfireResponseSystem - INFO - Fire area calculated: 2635720.97 hectares
+2026-09-25 21:38:51,478 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:51,478 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:51,478 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:51,478 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:51,479 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:51,480 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:51,480 - WildfireResponseSystem - INFO - Fire area calculated: 1353986.56 hectares
+2026-09-25 21:38:51,480 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:51,480 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:51,480 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:51,480 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:51,481 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:51,482 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:51,482 - WildfireResponseSystem - INFO - Fire area calculated: 3281603.92 hectares
+2026-09-25 21:38:51,482 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:38:51,482 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:38:51,482 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:38:51,482 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:38:51,484 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:38:51,484 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:38:51,485 - WildfireResponseSystem - INFO - Fire area calculated: 2348878.26 hectares
+2026-09-25 21:38:51,485 - WildfireResponseSystem - INFO - Fire area calculated: 2348878.26 hectares
+2026-09-25 21:38:51,485 - WildfireResponseSystem - INFO - Fire area calculated: 2348878.26 hectares
+2026-09-25 21:40:09,809 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:40:09,809 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:40:09,809 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:40:09,809 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:40:09,812 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:40:09,812 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:40:09,813 - WildfireResponseSystem - INFO - Fire area calculated: 1004144.14 hectares
+2026-09-25 21:40:10,378 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:40:10,378 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:40:10,378 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:40:10,378 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:40:10,399 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:40:10,399 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:40:10,399 - WildfireResponseSystem - INFO - Fire area calculated: 2876665.94 hectares
+2026-09-25 21:40:10,412 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:40:10,412 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:40:10,412 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:40:10,412 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:40:10,413 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:40:10,413 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:40:10,413 - WildfireResponseSystem - INFO - Fire area calculated: 2190281.50 hectares
+2026-09-25 21:40:10,413 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:40:10,413 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:40:10,414 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:40:10,414 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:40:10,415 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:40:10,415 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:40:10,415 - WildfireResponseSystem - INFO - Fire area calculated: 1223403.16 hectares
+2026-09-25 21:40:10,415 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:40:10,415 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:40:10,415 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:40:10,415 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:40:10,416 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:40:10,417 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:40:10,417 - WildfireResponseSystem - INFO - Fire area calculated: 1941038.52 hectares
+2026-09-25 21:40:10,417 - WildfireResponseSystem - INFO - Risk analysis complete for 12 zones
+2026-09-25 21:40:10,417 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:40:10,417 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:40:10,417 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:40:10,417 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:40:10,418 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:40:10,418 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:40:10,418 - WildfireResponseSystem - INFO - Fire area calculated: 2738476.75 hectares
+2026-09-25 21:40:10,419 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:40:10,419 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:40:10,419 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:40:10,419 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:40:10,420 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:40:10,420 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:40:10,420 - WildfireResponseSystem - INFO - Fire area calculated: 1649386.17 hectares
+2026-09-25 21:40:10,420 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:40:10,420 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:40:10,420 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:40:10,420 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:40:10,422 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:40:10,423 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:40:10,423 - WildfireResponseSystem - INFO - Fire area calculated: 753216.21 hectares
+2026-09-25 21:40:10,423 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:40:10,423 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:40:10,423 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:40:10,423 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:40:10,425 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:40:10,425 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:40:10,425 - WildfireResponseSystem - INFO - Fire area calculated: 2304346.70 hectares
+2026-09-25 21:40:10,425 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:40:10,425 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:40:10,425 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:40:10,426 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:40:10,427 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:40:10,427 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:40:10,427 - WildfireResponseSystem - INFO - Fire area calculated: 2111029.72 hectares
+2026-09-25 21:40:10,427 - WildfireResponseSystem - INFO - Fire area calculated: 2111029.72 hectares
+2026-09-25 21:40:10,427 - WildfireResponseSystem - INFO - Fire area calculated: 2111029.72 hectares
+2026-09-25 21:41:15,084 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:41:15,084 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:41:15,084 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:41:15,084 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:41:15,085 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:41:15,085 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:41:15,086 - WildfireResponseSystem - INFO - Fire area calculated: 2328175.54 hectares
+2026-09-25 21:41:16,246 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:41:16,247 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:41:16,247 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:41:16,247 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:41:16,279 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:41:16,279 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:41:16,279 - WildfireResponseSystem - INFO - Fire area calculated: 2386816.06 hectares
+2026-09-25 21:41:16,292 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:41:16,292 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:41:16,293 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:41:16,293 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:41:16,294 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:41:16,295 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:41:16,295 - WildfireResponseSystem - INFO - Fire area calculated: 2299115.44 hectares
+2026-09-25 21:41:16,295 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:41:16,296 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:41:16,296 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:41:16,296 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:41:16,298 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:41:16,299 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:41:16,299 - WildfireResponseSystem - INFO - Fire area calculated: 697781.24 hectares
+2026-09-25 21:41:16,299 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:41:16,299 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:41:16,299 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:41:16,299 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:41:16,300 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:41:16,301 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:41:16,301 - WildfireResponseSystem - INFO - Fire area calculated: 1901816.81 hectares
+2026-09-25 21:41:16,301 - WildfireResponseSystem - INFO - Risk analysis complete for 12 zones
+2026-09-25 21:41:16,301 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:41:16,301 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:41:16,301 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:41:16,301 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:41:16,302 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:41:16,303 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:41:16,303 - WildfireResponseSystem - INFO - Fire area calculated: 2058117.50 hectares
+2026-09-25 21:41:16,303 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:41:16,303 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:41:16,303 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:41:16,303 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:41:16,305 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:41:16,306 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:41:16,307 - WildfireResponseSystem - INFO - Fire area calculated: 2160040.53 hectares
+2026-09-25 21:41:16,307 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:41:16,308 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:41:16,308 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:41:16,308 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:41:16,311 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:41:16,311 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:41:16,312 - WildfireResponseSystem - INFO - Fire area calculated: 2110800.23 hectares
+2026-09-25 21:41:16,312 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:41:16,312 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:41:16,312 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:41:16,312 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:41:16,315 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:41:16,315 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:41:16,315 - WildfireResponseSystem - INFO - Fire area calculated: 855909.64 hectares
+2026-09-25 21:41:16,316 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:41:16,316 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:41:16,316 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:41:16,316 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:41:16,317 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:41:16,318 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:41:16,318 - WildfireResponseSystem - INFO - Fire area calculated: 3022703.17 hectares
+2026-09-25 21:41:16,318 - WildfireResponseSystem - INFO - Fire area calculated: 3022703.17 hectares
+2026-09-25 21:41:16,318 - WildfireResponseSystem - INFO - Fire area calculated: 3022703.17 hectares
+2026-09-25 21:59:33,086 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,088 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,088 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,088 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,089 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,090 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,093 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,093 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,094 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,096 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,096 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,096 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,096 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,098 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,099 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,320 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,320 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,320 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,320 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,322 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,322 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,322 - WildfireResponseSystem - INFO - Fire area calculated: 3176290.40 hectares
+2026-09-25 21:59:33,348 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,348 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,349 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,349 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,350 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,350 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,351 - WildfireResponseSystem - INFO - Fire area calculated: 1451418.82 hectares
+2026-09-25 21:59:33,371 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,372 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,372 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,372 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,373 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,374 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,374 - WildfireResponseSystem - INFO - Fire area calculated: 2540075.14 hectares
+2026-09-25 21:59:33,377 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,378 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,378 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,378 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,379 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,380 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,380 - WildfireResponseSystem - INFO - Fire area calculated: 2667914.11 hectares
+2026-09-25 21:59:33,383 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,383 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,383 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,383 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,385 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,386 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,386 - WildfireResponseSystem - INFO - Fire area calculated: 2889617.37 hectares
+2026-09-25 21:59:33,386 - WildfireResponseSystem - INFO - Risk analysis complete for 12 zones
+2026-09-25 21:59:33,389 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,389 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,389 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,389 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,395 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,396 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,396 - WildfireResponseSystem - INFO - Fire area calculated: 2691499.68 hectares
+2026-09-25 21:59:33,450 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,450 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,451 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,451 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,452 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,453 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,453 - WildfireResponseSystem - INFO - Fire area calculated: 3446284.32 hectares
+2026-09-25 21:59:33,453 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,454 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,454 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,454 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,456 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,468 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,468 - WildfireResponseSystem - INFO - Fire area calculated: 2385791.94 hectares
+2026-09-25 21:59:33,468 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,468 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,468 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,468 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,470 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,470 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,470 - WildfireResponseSystem - INFO - Fire area calculated: 2020679.90 hectares
+2026-09-25 21:59:33,473 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,474 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,474 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,474 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,475 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,475 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,475 - WildfireResponseSystem - INFO - Fire area calculated: 2147906.90 hectares
+2026-09-25 21:59:33,476 - WildfireResponseSystem - INFO - Fire area calculated: 2147906.90 hectares
+2026-09-25 21:59:33,476 - WildfireResponseSystem - INFO - Fire area calculated: 2147906.90 hectares
+2026-09-25 21:59:33,853 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,853 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,853 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,857 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,857 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,857 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,863 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,863 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,863 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,863 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,865 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,865 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,866 - WildfireResponseSystem - INFO - Fire area calculated: 2312193.72 hectares
+2026-09-25 21:59:33,869 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,869 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,870 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,873 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,873 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,873 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,878 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,878 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,878 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,879 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,881 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,882 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,882 - WildfireResponseSystem - INFO - Fire area calculated: 1487556.99 hectares
+2026-09-25 21:59:33,883 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,885 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,885 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,886 - WildfireResponseSystem - INFO - Fire area calculated: 2721195.25 hectares
+2026-09-25 21:59:33,889 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,890 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,890 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,890 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,892 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,892 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,892 - WildfireResponseSystem - INFO - Fire area calculated: 2920729.84 hectares
+2026-09-25 21:59:33,902 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-25 21:59:33,902 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-25 21:59:33,902 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-25 21:59:33,903 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,904 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,905 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,905 - WildfireResponseSystem - INFO - Fire area calculated: 2678162.25 hectares
+2026-09-25 21:59:33,906 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-25 21:59:33,907 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-25 21:59:33,908 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-25 21:59:33,909 - WildfireResponseSystem - INFO - Fire area calculated: 1260995.27 hectares
+2026-09-26 11:33:41,753 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:33:41,754 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:33:41,754 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:34:54,758 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:34:54,855 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:34:54,856 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:34:54,856 - WildfireResponseSystem - INFO - Fire area calculated: 2648908.39 hectares
+2026-09-26 11:34:54,947 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:34:54,949 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:34:54,949 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:34:54,950 - WildfireResponseSystem - INFO - Fire area calculated: 2321378.03 hectares
+2026-09-26 11:36:01,352 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,353 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,353 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,353 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,354 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,354 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,356 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,356 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,356 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,358 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,358 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,358 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,358 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,359 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,359 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,473 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,473 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,474 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,474 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,475 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,475 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,475 - WildfireResponseSystem - INFO - Fire area calculated: 1968218.95 hectares
+2026-09-26 11:36:01,492 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,492 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,492 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,492 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,493 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,493 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,493 - WildfireResponseSystem - INFO - Fire area calculated: 2248290.40 hectares
+2026-09-26 11:36:01,506 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,507 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,507 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,507 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,508 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,508 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,508 - WildfireResponseSystem - INFO - Fire area calculated: 2034335.66 hectares
+2026-09-26 11:36:01,510 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,511 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,511 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,511 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,512 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,512 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,513 - WildfireResponseSystem - INFO - Fire area calculated: 2373498.28 hectares
+2026-09-26 11:36:01,515 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,516 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,516 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,516 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,517 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,517 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,517 - WildfireResponseSystem - INFO - Fire area calculated: 2611925.95 hectares
+2026-09-26 11:36:01,517 - WildfireResponseSystem - INFO - Risk analysis complete for 12 zones
+2026-09-26 11:36:01,519 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,519 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,519 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,519 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,520 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,521 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,521 - WildfireResponseSystem - INFO - Fire area calculated: 1486115.38 hectares
+2026-09-26 11:36:01,523 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,523 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,523 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,523 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,524 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,524 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,524 - WildfireResponseSystem - INFO - Fire area calculated: 1220495.61 hectares
+2026-09-26 11:36:01,524 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,524 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,524 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,524 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,525 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,525 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,526 - WildfireResponseSystem - INFO - Fire area calculated: 1187935.54 hectares
+2026-09-26 11:36:01,526 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,526 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,526 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,526 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,527 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,527 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,527 - WildfireResponseSystem - INFO - Fire area calculated: 3245210.26 hectares
+2026-09-26 11:36:01,529 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,530 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,530 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,530 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,532 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,532 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,532 - WildfireResponseSystem - INFO - Fire area calculated: 1297894.09 hectares
+2026-09-26 11:36:01,532 - WildfireResponseSystem - INFO - Fire area calculated: 1297894.09 hectares
+2026-09-26 11:36:01,532 - WildfireResponseSystem - INFO - Fire area calculated: 1297894.09 hectares
+2026-09-26 11:36:01,767 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,767 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,767 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,769 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,769 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,769 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,772 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,772 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,772 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,772 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,773 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,773 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,774 - WildfireResponseSystem - INFO - Fire area calculated: 3122926.49 hectares
+2026-09-26 11:36:01,776 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,776 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,776 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,780 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,780 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,780 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,783 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,784 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,784 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,784 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,785 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,785 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,786 - WildfireResponseSystem - INFO - Fire area calculated: 1762566.44 hectares
+2026-09-26 11:36:01,786 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,787 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,787 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,788 - WildfireResponseSystem - INFO - Fire area calculated: 3526931.96 hectares
+2026-09-26 11:36:01,790 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,790 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,791 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,791 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,792 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,792 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,792 - WildfireResponseSystem - INFO - Fire area calculated: 3278487.82 hectares
+2026-09-26 11:36:01,800 - WildfireResponseSystem - INFO - Active data source: SIMULATION
+2026-09-26 11:36:01,800 - WildfireResponseSystem - INFO - Initialized 1 data sources
+2026-09-26 11:36:01,800 - WildfireResponseSystem - INFO - System initialized in simulation mode
+2026-09-26 11:36:01,801 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,802 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,802 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,803 - WildfireResponseSystem - INFO - Fire area calculated: 3133944.25 hectares
+2026-09-26 11:36:01,804 - WildfireResponseSystem - INFO - Loading fire data from Simulated Fire - demo_wildfire
+2026-09-26 11:36:01,805 - WildfireResponseSystem - INFO - Loaded 50 fire observations
+2026-09-26 11:36:01,805 - WildfireResponseSystem - INFO - Fire boundary generated: 20 points
+2026-09-26 11:36:01,805 - WildfireResponseSystem - INFO - Fire area calculated: 1121222.16 hectares

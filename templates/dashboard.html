@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wildfire Analysis Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .info-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .info-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .info-value {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            word-break: break-all;
+        }
+        canvas {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            margin: 20px 0;
+        }
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            padding: 8px 12px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 12px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        button.secondary {
+            background: #666;
+        }
+        button.secondary:hover {
+            background: #555;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        .data-table th {
+            background: #f0f0f0;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 2px solid #ddd;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        .data-table tr:hover {
+            background: #fafafa;
+        }
+        .extraction-info {
+            background: #f0f7ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #1565c0;
+            margin: 15px 0;
+        }
+        .extraction-info strong {
+            color: #0d47a1;
+        }
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .back-button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        .spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            padding: 15px;
+            border-radius: 5px;
+            color: #c62828;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔥 Wildfire Analysis Dashboard</h1>
+        <p>Data-Driven Boundary and Area Analysis</p>
+    </div>
+
+    <div class="container">
+        <a href="/" class="back-button">← Upload Different File</a>
+
+        <!-- LOADING STATE -->
+        <div id="loadingState" class="section" style="display: none;">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Loading data...</p>
+            </div>
+        </div>
+
+        <!-- ERROR STATE -->
+        <div id="errorState" class="section" style="display: none;">
+            <div class="error" id="errorMessage"></div>
+        </div>
+
+        <!-- DATA LOADED STATE -->
+        <div id="dataState" style="display: none;">
+            <!-- FILE INFORMATION -->
+            <div class="section">
+                <h2>📁 File Information</h2>
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="info-label">Filename</div>
+                        <div class="info-value" id="filename">—</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">File Type</div>
+                        <div class="info-value" id="filetype">—</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">File Size</div>
+                        <div class="info-value" id="filesize">—</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Upload Time</div>
+                        <div class="info-value" id="uploadtime">—</div>
+                    </div>
+                </div>
+                <div class="extraction-info" id="extractionInfo"></div>
+            </div>
+
+            <!-- BOUNDARY & AREA -->
+            <div class="section">
+                <h2>📐 Boundary & Area Analysis</h2>
+                <div class="button-group">
+                    <button onclick="calculateAndShowArea()">Calculate Area & Show Boundary</button>
+                </div>
+                <div id="areaStatus"></div>
+                <div class="info-grid" id="areaInfo" style="display: none; margin-top: 15px;">
+                    <div class="info-box">
+                        <div class="info-label">Boundary Points</div>
+                        <div class="info-value" id="boundaryPoints">0</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Calculated Area</div>
+                        <div class="info-value" id="area">0</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Area (Hectares)</div>
+                        <div class="info-value" id="hectares">0</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Perimeter</div>
+                        <div class="info-value" id="perimeter">0</div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 20px; margin-bottom: 10px; color: #667eea; font-size: 16px; display: none;" id="coordsHeader">Boundary Coordinates</h3>
+                <table class="data-table" id="coordsTableWrapper" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>X Coordinate</th>
+                            <th>Y Coordinate</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coordinatesTable">
+                        <tr><td colspan="3" style="text-align: center; color: #999;">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- MAP VISUALIZATION -->
+            <div class="section" id="mapSection" style="display: none;">
+                <h2>🗺️ Wildfire Boundary Visualization</h2>
+                <canvas id="boundaryCanvas"></canvas>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="color-box" style="background: #ff6b6b;"></div>
+                        Boundary Line
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background: rgba(255, 107, 107, 0.15);"></div>
+                        Fire Area
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background: #4285f4;"></div>
+                        Vertices
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background: #9c27b0;"></div>
+                        Mesh Nodes
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background: #ff9800;"></div>
+                        Drones
+                    </div>
+                </div>
+            </div>
+
+            <!-- MESH GENERATION -->
+            <div class="section" id="meshSection" style="display: none;">
+                <h2>🎯 Mesh Generation (Coverage Points)</h2>
+                <div class="button-group">
+                    <button onclick="generateMesh()">Generate Mesh</button>
+                    <input type="number" id="meshSpacing" value="15" min="1" step="0.1" style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; width: 120px;">
+                    <label style="padding: 10px; font-size: 13px;">Spacing (meters for geo, units for cartesian)</label>
+                </div>
+                <div id="meshStatus"></div>
+                <div class="info-grid" id="meshInfo" style="display: none; margin-top: 15px;">
+                    <div class="info-box">
+                        <div class="info-label">Mesh Nodes</div>
+                        <div class="info-value" id="meshCount">0</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Spacing</div>
+                        <div class="info-value" id="meshSpacingVal">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DRONE ALLOCATION -->
+            <div class="section" id="droneSection" style="display: none;">
+                <h2>🚁 Drone Allocation</h2>
+                <div class="button-group">
+                    <button onclick="allocateDrones()">Allocate Drones</button>
+                    <input type="number" id="droneCount" value="4" min="1" max="10" style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; width: 80px;">
+                    <label style="padding: 10px; font-size: 13px;">Number of Drones</label>
+                </div>
+                <div id="allocationStatus"></div>
+                <div id="allocationInfo" style="display: none; margin-top: 15px;"></div>
+            </div>
+
+            <!-- PATH PLANNING -->
+            <div class="section" id="pathSection" style="display: none;">
+                <h2>✈️ Path Planning & Optimization</h2>
+                <div class="button-group">
+                    <button onclick="planPaths()">Plan Optimized Paths</button>
+                </div>
+                <div id="pathStatus"></div>
+                <div id="pathInfo" style="display: none; margin-top: 15px;"></div>
+            </div>
+
+            <!-- EXPORT -->
+            <div class="section">
+                <h2>💾 Export Data</h2>
+                <div class="button-group">
+                    <button class="secondary" onclick="exportJSON()">📥 Export as JSON</button>
+                    <button class="secondary" onclick="exportCSV()">📊 Export as CSV</button>
+                    <button onclick="window.location.href='/'" style="background: #667eea;">📤 Upload Another File</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentData = null;
+        let boundary = [];
+        let mesh = [];
+        let droneAllocation = {};
+        let dronePaths = {};
+        let droneColors = ['#ff9800', '#00bcd4', '#4caf50', '#e91e63', '#9c27b0', '#ff5722'];
+
+        // Load data on page load
+        window.addEventListener('load', () => {
+            loadData();
+        });
+
+        function loadData() {
+            document.getElementById('loadingState').style.display = 'block';
+            document.getElementById('dataState').style.display = 'none';
+
+            fetch(`/api/get-data?t=${Date.now()}`, {
+                cache: 'no-store',
+                headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' }
+            })
+            .then(r => r.json())
+            .then(res => {
+                if (res.status !== 'success' || !res.data) {
+                    showError('No data available. Please upload a file first.');
+                    return;
+                }
+
+                currentData = res.data;
+                boundary = currentData.boundary || [];
+
+                if (!boundary || boundary.length === 0) {
+                    showError('No boundary data extracted.');
+                    return;
+                }
+
+                displayData();
+                drawBoundary();
+
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('errorState').style.display = 'none';
+                document.getElementById('dataState').style.display = 'block';
+            })
+            .catch(e => {
+                showError(`Error loading data: ${e.message}`);
+            });
+        }
+
+        function showError(msg) {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'block';
+            document.getElementById('errorMessage').textContent = msg;
+        }
+
+        function displayData() {
+            // File info
+            document.getElementById('filename').textContent = currentData.filename || '—';
+            document.getElementById('filetype').textContent = currentData.file_type || '—';
+            document.getElementById('filesize').textContent = 
+                currentData.file_size ? (currentData.file_size / 1024).toFixed(2) + ' KB' : '—';
+            document.getElementById('uploadtime').textContent = 
+                new Date(currentData.timestamp).toLocaleString() || '—';
+
+            // Extraction info
+            const info = currentData.extraction_info || {};
+            let infoHtml = `<strong>Extraction Method:</strong> ${info.method || 'unknown'}<br>`;
+            if (info.points) infoHtml += `<strong>Points Extracted:</strong> ${info.points}<br>`;
+            if (info.key_used) infoHtml += `<strong>Key Used:</strong> ${info.key_used}<br>`;
+            if (info.x_column) infoHtml += `<strong>X Column:</strong> ${info.x_column} | <strong>Y Column:</strong> ${info.y_column}<br>`;
+            if (info.source) infoHtml += `<strong>Source:</strong> ${info.source}`;
+            document.getElementById('extractionInfo').innerHTML = infoHtml;
+        }
+
+        function calculateAndShowArea() {
+            // Show area info
+            document.getElementById('boundaryPoints').textContent = boundary.length;
+            
+            const area = currentData.area || 0;
+            // Check if area is in square meters (large number)
+            if (area > 1000) {
+                document.getElementById('area').textContent = area.toFixed(0) + ' m²';
+                document.getElementById('hectares').textContent = (area / 10000).toFixed(4) + ' ha';
+            } else {
+                document.getElementById('area').textContent = area.toFixed(2);
+                document.getElementById('hectares').textContent = (area * 0.01).toFixed(2);
+            }
+            
+            document.getElementById('perimeter').textContent = calculatePerimeter(boundary).toFixed(2);
+            
+            document.getElementById('areaInfo').style.display = 'grid';
+            document.getElementById('areaStatus').innerHTML = '<div style="color: green; margin-top: 10px;">✓ Area calculated successfully</div>';
+
+            // Show coordinates table
+            let tableHtml = '';
+            for (let i = 0; i < Math.min(boundary.length, 100); i++) {
+                const p = boundary[i];
+                const x = Array.isArray(p) ? p[0] : p.x;
+                const y = Array.isArray(p) ? p[1] : p.y;
+                tableHtml += `<tr><td>${i + 1}</td><td>${parseFloat(x).toFixed(6)}</td><td>${parseFloat(y).toFixed(6)}</td></tr>`;
+            }
+            if (boundary.length > 100) {
+                tableHtml += `<tr><td colspan="3" style="text-align: center; color: #999;">... and ${boundary.length - 100} more points</td></tr>`;
+            }
+            document.getElementById('coordinatesTable').innerHTML = tableHtml;
+            document.getElementById('coordsHeader').style.display = 'block';
+            document.getElementById('coordsTableWrapper').style.display = 'table';
+
+            // Show map section
+            document.getElementById('mapSection').style.display = 'block';
+            drawBoundary();
+
+            // Show mesh section
+            document.getElementById('meshSection').style.display = 'block';
+        }
+
+        function generateMesh() {
+            const spacing = parseFloat(document.getElementById('meshSpacing').value) || 15;
+            document.getElementById('meshStatus').innerHTML = '<div style="color: #666; margin-top: 10px;">⏳ Generating mesh...</div>';
+            
+            fetch('/api/generate-mesh', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ spacing: spacing })
+            })
+            .then(r => r.json())
+            .then(res => {
+                if (res.status === 'success') {
+                    mesh = res.mesh;
+                    const actualSpacing = res.spacing_used || spacing;
+                    const isGeo = res.is_geographic || false;
+                    const spacingUnit = isGeo ? 'm' : 'units';
+                    let statusMsg = `✓ Generated ${res.count} mesh nodes with ${actualSpacing} ${spacingUnit} spacing`;
+                    document.getElementById('meshStatus').innerHTML = `<div style="color: green; margin-top: 10px;">${statusMsg}</div>`;
+                    document.getElementById('meshInfo').style.display = 'grid';
+                    document.getElementById('meshCount').textContent = res.count;
+                    document.getElementById('meshSpacingVal').textContent = `${actualSpacing} ${spacingUnit}`;
+                    
+                    // Show drone section
+                    document.getElementById('droneSection').style.display = 'block';
+                    
+                    drawBoundary();
+                } else {
+                    document.getElementById('meshStatus').innerHTML = `<div style="color: red; margin-top: 10px;">✗ ${res.msg}</div>`;
+                }
+            })
+            .catch(e => {
+                document.getElementById('meshStatus').innerHTML = `<div style="color: red; margin-top: 10px;">✗ Error: ${e.message}</div>`;
+            });
+        }
+
+        function allocateDrones() {
+            const numDrones = parseInt(document.getElementById('droneCount').value) || 4;
+            document.getElementById('allocationStatus').innerHTML = '<div style="color: #666; margin-top: 10px;">⏳ Allocating drones...</div>';
+            
+            fetch('/api/allocate-drones', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ num_drones: numDrones })
+            })
+            .then(r => r.json())
+            .then(res => {
+                if (res.status === 'success') {
+                    droneAllocation = res.allocation;
+                    document.getElementById('allocationStatus').innerHTML = `<div style="color: green; margin-top: 10px;">✓ Allocated ${res.num_drones} drones</div>`;
+                    
+                    // Show allocation details
+                    let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">';
+                    for (let i = 0; i < res.num_drones; i++) {
+                        const nodes = droneAllocation[i];
+                        html += `<div style="background: ${droneColors[i % droneColors.length]}20; padding: 12px; border-left: 4px solid ${droneColors[i % droneColors.length]}; border-radius: 5px;">
+                            <strong style="color: ${droneColors[i % droneColors.length]};">Drone ${i + 1}</strong><br>
+                            <span style="font-size: 12px;">${nodes.length} mesh nodes assigned</span>
+                        </div>`;
+                    }
+                    html += '</div>';
+                    document.getElementById('allocationInfo').innerHTML = html;
+                    document.getElementById('allocationInfo').style.display = 'block';
+                    
+                    // Show path section
+                    document.getElementById('pathSection').style.display = 'block';
+                    
+                    drawBoundary();
+                } else {
+                    document.getElementById('allocationStatus').innerHTML = `<div style="color: red; margin-top: 10px;">✗ ${res.msg}</div>`;
+                }
+            })
+            .catch(e => {
+                document.getElementById('allocationStatus').innerHTML = `<div style="color: red; margin-top: 10px;">✗ Error: ${e.message}</div>`;
+            });
+        }
+
+        function planPaths() {
+            document.getElementById('pathStatus').innerHTML = '<div style="color: #666; margin-top: 10px;">⏳ Planning optimized paths...</div>';
+            
+            fetch('/api/plan-paths', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({})
+            })
+            .then(r => r.json())
+            .then(res => {
+                if (res.status === 'success') {
+                    dronePaths = res.paths;
+                    document.getElementById('pathStatus').innerHTML = `<div style="color: green; margin-top: 10px;">✓ Paths optimized</div>`;
+                    
+                    // Show path stats
+                    let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">';
+                    let totalDist = 0;
+                    for (let droneId in res.distances) {
+                        const dist = res.distances[droneId];
+                        const area = res.areas[droneId];
+                        totalDist += dist;
+                        
+                        // Format distance based on magnitude
+                        let distStr = dist > 1000 ? `${(dist/1000).toFixed(2)} km` : `${dist.toFixed(1)} m`;
+                        let areaStr = area > 10000 ? `${(area/10000).toFixed(4)} ha` : `${area.toFixed(1)} m²`;
+                        
+                        html += `<div style="background: linear-gradient(135deg, ${droneColors[parseInt(droneId) % droneColors.length]}, ${droneColors[(parseInt(droneId) + 1) % droneColors.length]}); color: white; padding: 20px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 12px; opacity: 0.9;">Drone ${parseInt(droneId) + 1}</div>
+                            <div style="font-size: 24px; font-weight: bold; margin: 8px 0;">${distStr}</div>
+                            <div style="font-size: 11px; opacity: 0.8;">Distance</div>
+                            <div style="font-size: 14px; margin-top: 8px;">Coverage: ${areaStr}</div>
+                        </div>`;
+                    }
+                    
+                    let totalDistStr = totalDist > 1000 ? `${(totalDist/1000).toFixed(2)} km` : `${totalDist.toFixed(1)} m`;
+                    
+                    html += `<div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 12px; opacity: 0.9;">Total Distance</div>
+                        <div style="font-size: 24px; font-weight: bold; margin: 8px 0;">${totalDistStr}</div>
+                        <div style="font-size: 11px; opacity: 0.8;">All drones combined</div>
+                    </div></div>`;
+                    document.getElementById('pathInfo').innerHTML = html;
+                    document.getElementById('pathInfo').style.display = 'block';
+                    drawBoundary();
+                } else {
+                    document.getElementById('pathStatus').innerHTML = `<div style="color: red; margin-top: 10px;">✗ ${res.msg}</div>`;
+                }
+            })
+            .catch(e => {
+                document.getElementById('pathStatus').innerHTML = `<div style="color: red; margin-top: 10px;">✗ Error: ${e.message}</div>`;
+            });
+        }
+
+        function calculatePerimeter(boundary) {
+            let perimeter = 0;
+            for (let i = 0; i < boundary.length; i++) {
+                const p1 = boundary[i];
+                const p2 = boundary[(i + 1) % boundary.length];
+                const x1 = Array.isArray(p1) ? p1[0] : p1.x;
+                const y1 = Array.isArray(p1) ? p1[1] : p1.y;
+                const x2 = Array.isArray(p2) ? p2[0] : p2.x;
+                const y2 = Array.isArray(p2) ? p2[1] : p2.y;
+                perimeter += Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+            }
+            return perimeter;
+        }
+
+        function drawBoundary() {
+            const canvas = document.getElementById('boundaryCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = 500;
+
+            // Background
+            ctx.fillStyle = '#fafafa';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Grid
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < canvas.width; i += 50) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, canvas.height);
+                ctx.stroke();
+            }
+            for (let i = 0; i < canvas.height; i += 50) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(canvas.width, i);
+                ctx.stroke();
+            }
+
+            if (!boundary || boundary.length < 3) {
+                ctx.fillStyle = '#999';
+                ctx.font = '16px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Invalid boundary data', canvas.width / 2, canvas.height / 2);
+                return;
+            }
+
+            // Calculate bounds
+            const xs = boundary.map(p => Array.isArray(p) ? p[0] : p.x);
+            const ys = boundary.map(p => Array.isArray(p) ? p[1] : p.y);
+            const minX = Math.min(...xs), maxX = Math.max(...xs);
+            const minY = Math.min(...ys), maxY = Math.max(...ys);
+            const w = maxX - minX || 1, h = maxY - minY || 1;
+            const padding = 40;
+            const scale = Math.min((canvas.width - padding * 2) / w, (canvas.height - padding * 2) / h);
+            const offsetX = padding + (canvas.width - padding * 2) / 2 - (minX + w / 2) * scale;
+            const offsetY = padding + (canvas.height - padding * 2) / 2 - (minY + h / 2) * scale;
+
+            // Draw filled area
+            ctx.fillStyle = 'rgba(255, 107, 107, 0.15)';
+            ctx.beginPath();
+            for (let i = 0; i < boundary.length; i++) {
+                const p = boundary[i];
+                const x = offsetX + (Array.isArray(p) ? p[0] : p.x) * scale;
+                const y = offsetY + (Array.isArray(p) ? p[1] : p.y) * scale;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.fill();
+
+            // Draw boundary
+            ctx.strokeStyle = '#ff6b6b';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            for (let i = 0; i < boundary.length; i++) {
+                const p = boundary[i];
+                const x = offsetX + (Array.isArray(p) ? p[0] : p.x) * scale;
+                const y = offsetY + (Array.isArray(p) ? p[1] : p.y) * scale;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.stroke();
+
+            // Draw mesh nodes
+            if (mesh && mesh.length > 0) {
+                ctx.fillStyle = '#9c27b0';
+                for (let m of mesh) {
+                    const x = offsetX + m[0] * scale;
+                    const y = offsetY + m[1] * scale;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // Draw drone paths
+            if (dronePaths && Object.keys(dronePaths).length > 0) {
+                for (let droneId in dronePaths) {
+                    const path = dronePaths[droneId];
+                    const color = droneColors[parseInt(droneId) % droneColors.length];
+                    
+                    // Draw path lines
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    for (let i = 0; i < path.length; i++) {
+                        const x = offsetX + path[i][0] * scale;
+                        const y = offsetY + path[i][1] * scale;
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    // Close the loop
+                    if (path.length > 0) {
+                        const x = offsetX + path[0][0] * scale;
+                        const y = offsetY + path[0][1] * scale;
+                        ctx.lineTo(x, y);
+                    }
+                    ctx.stroke();
+                    
+                    // Draw drone start position
+                    if (path.length > 0) {
+                        const x = offsetX + path[0][0] * scale;
+                        const y = offsetY + path[0][1] * scale;
+                        ctx.fillStyle = color;
+                        ctx.beginPath();
+                        ctx.moveTo(x, y - 8);
+                        ctx.lineTo(x - 8, y + 8);
+                        ctx.lineTo(x + 8, y + 8);
+                        ctx.closePath();
+                        ctx.fill();
+                        
+                        // Draw drone number
+                        ctx.fillStyle = 'white';
+                        ctx.font = 'bold 10px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(parseInt(droneId) + 1, x, y + 2);
+                    }
+                }
+            }
+
+            // Draw vertices (show all including closing duplicate)
+            ctx.fillStyle = '#4285f4';
+            for (let i = 0; i < boundary.length; i++) {
+                const p = boundary[i];
+                const x = offsetX + (Array.isArray(p) ? p[0] : p.x) * scale;
+                const y = offsetY + (Array.isArray(p) ? p[1] : p.y) * scale;
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw vertex number
+                if (i < boundary.length - 1 || boundary.length <= 7) {
+                    ctx.fillStyle = 'white';
+                    ctx.font = 'bold 10px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(i + 1, x, y);
+                    ctx.fillStyle = '#4285f4';
+                }
+            }
+        }
+
+        function exportJSON() {
+            const data = {
+                filename: currentData.filename,
+                extraction_method: currentData.extraction_info?.method,
+                timestamp: currentData.timestamp,
+                boundary_points: boundary.length,
+                area: currentData.area,
+                perimeter: calculatePerimeter(boundary),
+                boundary: boundary
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            downloadFile(blob, `wildfire_${Date.now()}.json`);
+        }
+
+        function exportCSV() {
+            let csv = 'X,Y\n';
+            for (let p of boundary) {
+                const x = Array.isArray(p) ? p[0] : p.x;
+                const y = Array.isArray(p) ? p[1] : p.y;
+                csv += `${x},${y}\n`;
+            }
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            downloadFile(blob, `wildfire_${Date.now()}.csv`);
+        }
+
+        function downloadFile(blob, filename) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

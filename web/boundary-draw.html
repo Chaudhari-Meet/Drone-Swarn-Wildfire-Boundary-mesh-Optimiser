@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boundary Draw - Wildfire Drone Response System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --danger: #f44336;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --dark: #222;
+            --light: #f5f5f5;
+            --boundary-color: #ff6b6b;
+            --mesh-color: #51cf66;
+            --grid-color: #ddd;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--dark);
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .header {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 22px;
+        }
+
+        .header-subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            gap: 15px;
+            padding: 15px;
+        }
+
+        .canvas-area {
+            flex: 2;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+
+        .dashboard {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .dashboard-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .dashboard-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 13px;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #45a049;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #fb8c00;
+        }
+
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 12px;
+            flex: 1;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 10px;
+            background: var(--light);
+            border-radius: 5px;
+        }
+
+        .nav-counter {
+            font-weight: bold;
+            font-size: 14px;
+            color: var(--primary);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-success {
+            background: #e8f5e9;
+            color: var(--success);
+            border-left: 4px solid var(--success);
+        }
+
+        .alert-error {
+            background: #ffebee;
+            color: var(--danger);
+            border-left: 4px solid var(--danger);
+        }
+
+        .alert-info {
+            background: #e3f2fd;
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal-title {
+            color: var(--primary);
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--light);
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .color-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 10px 0;
+            font-size: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        @media (max-width: 1024px) {
+            .content {
+                flex-direction: column-reverse;
+            }
+
+            .dashboard {
+                max-height: 300px;
+            }
+
+            .canvas-area {
+                height: 400px;
+            }
+        }
+
+        .drone-color {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1>🎯 Draw Wildfire Boundary</h1>
+                <div class="header-subtitle">Click on the graph to define the wildfire boundary</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Canvas Area -->
+            <div class="canvas-area">
+                <canvas id="boundaryCanvas"></canvas>
+            </div>
+
+            <!-- Dashboard Panel -->
+            <div class="dashboard">
+                <div id="alert-container"></div>
+
+                <!-- Navigation -->
+                <div class="navigation">
+                    <button class="btn-primary btn-small" id="prevBtn">◀</button>
+                    <div class="nav-counter" id="datasetCounter">0 / 0</div>
+                    <button class="btn-primary btn-small" id="nextBtn">▶</button>
+                </div>
+
+                <!-- Project Info -->
+                <div class="dashboard-section">
+                    <div class="section-title">📋 PROJECT INFO</div>
+                    <div class="stat-item">
+                        <span>Dataset:</span>
+                        <span class="stat-value" id="datasetName">New</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Status:</span>
+                        <span class="stat-value" id="boundaryStatus">Drawing</span>
+                    </div>
+                </div>
+
+                <!-- Calculated Area -->
+                <div class="dashboard-section">
+                    <div class="section-title">📐 CALCULATED AREA</div>
+                    <div class="stat-item">
+                        <span>Area (sq units):</span>
+                        <span class="stat-value" id="areaValue">0.00</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Hectares:</span>
+                        <span class="stat-value" id="hectareValue">0.00</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Acres:</span>
+                        <span class="stat-value" id="acreValue">0.00</span>
+                    </div>
+                </div>
+
+                <!-- Mesh Info -->
+                <div class="dashboard-section">
+                    <div class="section-title">🔗 MESH GENERATION</div>
+                    <div class="stat-item">
+                        <span>Mesh Nodes:</span>
+                        <span class="stat-value" id="meshCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Status:</span>
+                        <span class="stat-value" id="meshStatus">Not Generated</span>
+                    </div>
+                </div>
+
+                <!-- Drone Allocation -->
+                <div class="dashboard-section">
+                    <div class="section-title">🚁 DRONE ALLOCATION</div>
+                    <div class="stat-item">
+                        <span>Total Drones:</span>
+                        <span class="stat-value" id="droneCount">0</span>
+                    </div>
+                    <div id="droneAllocationList" style="margin-top: 10px; max-height: 150px; overflow-y: auto;"></div>
+                </div>
+
+                <!-- Path Optimization -->
+                <div class="dashboard-section">
+                    <div class="section-title">⚡ PATH OPTIMIZATION</div>
+                    <div class="stat-item">
+                        <span>Sequential Distance:</span>
+                        <span class="stat-value" id="seqDistance">0.00</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Optimized Distance:</span>
+                        <span class="stat-value" id="optDistance">0.00</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Path Reduction:</span>
+                        <span class="stat-value" id="pathReduction">0.00%</span>
+                    </div>
+                </div>
+
+                <!-- Boundary Points -->
+                <div class="dashboard-section">
+                    <div class="section-title">📍 BOUNDARY POINTS</div>
+                    <div id="pointsList" style="max-height: 150px; overflow-y: auto; font-size: 12px;">
+                        <div style="color: #999; text-align: center; padding: 10px;">No points yet</div>
+                    </div>
+                </div>
+
+                <!-- Controls Section -->
+                <div class="controls">
+                    <!-- Top Row: Undo, Clear, New -->
+                    <div class="button-group">
+                        <button class="btn-primary btn-small" id="undoBtn" disabled>↶ Undo</button>
+                        <button class="btn-danger btn-small" id="clearBtn" disabled>🗑️ Clear</button>
+                        <button class="btn-warning btn-small" id="newBtn">📄 New</button>
+                    </div>
+
+                    <!-- Second Row: Finish, Save, Calculate Area -->
+                    <div class="button-group">
+                        <button class="btn-success btn-small" id="finishBtn" disabled>✓ Finish</button>
+                        <button class="btn-primary btn-small" id="saveBtn" disabled>💾 Save</button>
+                        <button class="btn-primary btn-small" id="loadBtn">📂 Load</button>
+                    </div>
+
+                    <!-- Third Row: Calculate Area -->
+                    <div class="button-group">
+                        <button class="btn-primary btn-small" id="calcAreaBtn" disabled>Calculate Area</button>
+                    </div>
+
+                    <!-- Fourth Row: Mesh -->
+                    <div class="button-group">
+                        <button class="btn-primary btn-small" id="generateMeshBtn" disabled>Generate Mesh</button>
+                    </div>
+
+                    <!-- Fifth Row: Drones and Paths -->
+                    <div class="button-group">
+                        <button class="btn-primary btn-small" id="allocateDronesBtn" disabled>Allocate Drones</button>
+                        <button class="btn-primary btn-small" id="planPathsBtn" disabled>Plan Paths</button>
+                    </div>
+
+                    <!-- Sixth Row: Performance -->
+                    <div class="button-group">
+                        <button class="btn-primary btn-small" id="comparePerformanceBtn" disabled>Compare Performance</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Drone Allocation Modal -->
+    <div class="modal" id="droneModal">
+        <div class="modal-content">
+            <div class="modal-title">Enter Number of Drones</div>
+            <input type="number" class="modal-input" id="droneInput" min="1" max="20" value="5" placeholder="Enter number">
+            <div class="modal-buttons">
+                <button class="btn-danger" onclick="closeDroneModal()">Cancel</button>
+                <button class="btn-success" onclick="confirmDroneAllocation()">Allocate</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden file input for load -->
+    <input type="file" id="fileInput" accept=".json" style="display: none;">
+
+    <script>
+        // ============================================================
+        // STATE MANAGEMENT
+        // ============================================================
+        const state = {
+            boundary: [],
+            boundaryCompleted: false,
+            currentArea: 0,
+            mesh: [],
+            meshNodes: 0,
+            numberOfDrones: 0,
+            droneAssignments: {},
+            dronePaths: {},
+            droneDistances: {},
+            performanceResults: {},
+            savedFiles: [],
+            currentDatasetIndex: 0,
+            editMode: false,
+            pointCoordinates: [],
+            droneColors: []
+        };
+
+        const canvas = document.getElementById('boundaryCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Graph parameters
+        const graph = {
+            minX: 0,
+            maxX: 100,
+            minY: 0,
+            maxY: 100,
+            padding: 50,
+            gridSpacing: 10
+        };
+
+        // ============================================================
+        // CANVAS INITIALIZATION
+        // ============================================================
+        function resizeCanvas() {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            drawGraph();
+        }
+
+        function drawGraph() {
+            const width = canvas.width;
+            const height = canvas.height;
+
+            // Clear canvas
+            ctx.fillStyle = '#fafafa';
+            ctx.fillRect(0, 0, width, height);
+
+            // Draw grid
+            drawGrid();
+
+            // Draw axes
+            drawAxes();
+
+            // Draw mesh if exists
+            if (state.mesh.length > 0) {
+                drawMesh();
+            }
+
+            // Draw boundary fill
+            if (state.boundary.length > 2 && state.boundaryCompleted) {
+                drawBoundaryFill();
+            }
+
+            // Draw boundary lines and points
+            drawBoundary();
+
+            // Draw drone assignments if exist
+            if (Object.keys(state.droneAssignments).length > 0) {
+                drawDroneNodes();
+            }
+
+            // Draw drone paths if exist
+            if (Object.keys(state.dronePaths).length > 0) {
+                drawDronePaths();
+            }
+        }
+
+        function screenToGraph(x, y) {
+            const width = canvas.width;
+            const height = canvas.height;
+
+            const graphWidth = width - 2 * graph.padding;
+            const graphHeight = height - 2 * graph.padding;
+
+            const graphX = ((x - graph.padding) / graphWidth) * (graph.maxX - graph.minX) + graph.minX;
+            const graphY = ((height - graph.padding - y) / graphHeight) * (graph.maxY - graph.minY) + graph.minY;
+
+            return { x: Math.round(graphX * 100) / 100, y: Math.round(graphY * 100) / 100 };
+        }
+
+        function graphToScreen(gx, gy) {
+            const width = canvas.width;
+            const height = canvas.height;
+
+            const graphWidth = width - 2 * graph.padding;
+            const graphHeight = height - 2 * graph.padding;
+
+            const x = ((gx - graph.minX) / (graph.maxX - graph.minX)) * graphWidth + graph.padding;
+            const y = height - graph.padding - ((gy - graph.minY) / (graph.maxY - graph.minY)) * graphHeight;
+
+            return { x, y };
+        }
+
+        function drawGrid() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const graphWidth = width - 2 * graph.padding;
+            const graphHeight = height - 2 * graph.padding;
+
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 0.5;
+
+            // Vertical grid lines
+            for (let i = 0; i <= graph.maxX; i += graph.gridSpacing) {
+                const screenX = ((i - graph.minX) / (graph.maxX - graph.minX)) * graphWidth + graph.padding;
+                ctx.beginPath();
+                ctx.moveTo(screenX, graph.padding);
+                ctx.lineTo(screenX, height - graph.padding);
+                ctx.stroke();
+            }
+
+            // Horizontal grid lines
+            for (let i = 0; i <= graph.maxY; i += graph.gridSpacing) {
+                const screenY = height - graph.padding - ((i - graph.minY) / (graph.maxY - graph.minY)) * graphHeight;
+                ctx.beginPath();
+                ctx.moveTo(graph.padding, screenY);
+                ctx.lineTo(canvas.width - graph.padding, screenY);
+                ctx.stroke();
+            }
+
+            // Draw axis labels
+            ctx.fillStyle = '#666';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+
+            for (let i = 0; i <= graph.maxX; i += graph.gridSpacing * 2) {
+                const screenX = ((i - graph.minX) / (graph.maxX - graph.minX)) * graphWidth + graph.padding;
+                ctx.fillText(i, screenX, height - graph.padding + 20);
+            }
+
+            ctx.textAlign = 'right';
+            for (let i = 0; i <= graph.maxY; i += graph.gridSpacing * 2) {
+                const screenY = height - graph.padding - ((i - graph.minY) / (graph.maxY - graph.minY)) * graphHeight;
+                ctx.fillText(i, graph.padding - 10, screenY + 5);
+            }
+        }
+
+        function drawAxes() {
+            const width = canvas.width;
+            const height = canvas.height;
+
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+
+            // X axis
+            ctx.beginPath();
+            ctx.moveTo(graph.padding, height - graph.padding);
+            ctx.lineTo(width - graph.padding, height - graph.padding);
+            ctx.stroke();
+
+            // Y axis
+            ctx.beginPath();
+            ctx.moveTo(graph.padding, graph.padding);
+            ctx.lineTo(graph.padding, height - graph.padding);
+            ctx.stroke();
+
+            // Axis labels
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 14px Arial';
+            ctx.textAlign = 'right';
+            ctx.fillText('X →', width - 20, height - graph.padding - 10);
+            ctx.textAlign = 'left';
+            ctx.fillText('Y ↑', graph.padding + 10, graph.padding - 10);
+        }
+
+        function drawBoundaryFill() {
+            ctx.fillStyle = 'rgba(255, 165, 0, 0.2)';
+            ctx.beginPath();
+            const first = graphToScreen(state.boundary[0][0], state.boundary[0][1]);
+            ctx.moveTo(first.x, first.y);
+            for (let i = 1; i < state.boundary.length; i++) {
+                const pt = graphToScreen(state.boundary[i][0], state.boundary[i][1]);
+                ctx.lineTo(pt.x, pt.y);
+            }
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function drawBoundary() {
+            if (state.boundary.length === 0) return;
+
+            // Draw lines
+            ctx.strokeStyle = var('--boundary-color', '#ff6b6b');
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            const first = graphToScreen(state.boundary[0][0], state.boundary[0][1]);
+            ctx.moveTo(first.x, first.y);
+
+            for (let i = 1; i < state.boundary.length; i++) {
+                const pt = graphToScreen(state.boundary[i][0], state.boundary[i][1]);
+                ctx.lineTo(pt.x, pt.y);
+            }
+
+            if (state.boundaryCompleted) {
+                ctx.closePath();
+            }
+            ctx.stroke();
+
+            // Draw points and labels
+            for (let i = 0; i < state.boundary.length; i++) {
+                const pt = graphToScreen(state.boundary[i][0], state.boundary[i][1]);
+
+                // Point
+                ctx.fillStyle = '#2196F3';
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 6, 0, 2 * Math.PI);
+                ctx.fill();
+
+                // Label
+                ctx.fillStyle = '#1565c0';
+                ctx.font = 'bold 12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText((i + 1), pt.x, pt.y - 15);
+            }
+        }
+
+        function drawMesh() {
+            ctx.fillStyle = '#51cf66';
+            for (const node of state.mesh) {
+                const pt = graphToScreen(node[0], node[1]);
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 3, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+
+        function drawDroneNodes() {
+            for (let droneId in state.droneAssignments) {
+                const color = state.droneColors[parseInt(droneId) - 1] || '#000';
+                ctx.fillStyle = color;
+
+                for (const nodeIdx of state.droneAssignments[droneId]) {
+                    if (nodeIdx < state.mesh.length) {
+                        const node = state.mesh[nodeIdx];
+                        const pt = graphToScreen(node[0], node[1]);
+                        ctx.beginPath();
+                        ctx.arc(pt.x, pt.y, 4, 0, 2 * Math.PI);
+                        ctx.fill();
+                    }
+                }
+            }
+        }
+
+        function drawDronePaths() {
+            for (let droneId in state.dronePaths) {
+                const color = state.droneColors[parseInt(droneId) - 1] || '#000';
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([5, 5]);
+
+                const path = state.dronePaths[droneId];
+                if (path.length > 1) {
+                    ctx.beginPath();
+                    const first = graphToScreen(path[0][0], path[0][1]);
+                    ctx.moveTo(first.x, first.y);
+
+                    for (let i = 1; i < path.length; i++) {
+                        const pt = graphToScreen(path[i][0], path[i][1]);
+                        ctx.lineTo(pt.x, pt.y);
+                    }
+                    ctx.stroke();
+                }
+            }
+            ctx.setLineDash([]);
+        }
+
+        // ============================================================
+        // CANVAS EVENTS
+        // ============================================================
+        canvas.addEventListener('click', (e) => {
+            if (state.boundaryCompleted && !state.editMode) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Check if click is within graph area
+            if (x < graph.padding || x > canvas.width - graph.padding ||
+                y < graph.padding || y > canvas.height - graph.padding) {
+                return;
+            }
+
+            const coord = screenToGraph(x, y);
+            state.boundary.push([coord.x, coord.y]);
+            state.pointCoordinates.push(coord);
+
+            updatePointsList();
+            updateUI();
+            drawGraph();
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            if (x >= graph.padding && x <= canvas.width - graph.padding &&
+                y >= graph.padding && y <= canvas.height - graph.padding) {
+                const coord = screenToGraph(x, y);
+                // Update coordinate display if needed
+            }
+        });
+
+        // ============================================================
+        // BUTTON HANDLERS
+        // ============================================================
+        document.getElementById('undoBtn').addEventListener('click', undo);
+        document.getElementById('clearBtn').addEventListener('click', () => confirmClear());
+        document.getElementById('newBtn').addEventListener('click', newBoundary);
+        document.getElementById('finishBtn').addEventListener('click', finishBoundary);
+        document.getElementById('saveBtn').addEventListener('click', saveBoundary);
+        document.getElementById('loadBtn').addEventListener('click', loadBoundary);
+        document.getElementById('calcAreaBtn').addEventListener('click', calculateArea);
+        document.getElementById('generateMeshBtn').addEventListener('click', generateMesh);
+        document.getElementById('allocateDronesBtn').addEventListener('click', () => openDroneModal());
+        document.getElementById('planPathsBtn').addEventListener('click', planPaths);
+        document.getElementById('comparePerformanceBtn').addEventListener('click', comparePerformance);
+        document.getElementById('prevBtn').addEventListener('click', previousDataset);
+        document.getElementById('nextBtn').addEventListener('click', nextDataset);
+
+        function undo() {
+            if (state.boundary.length > 0) {
+                state.boundary.pop();
+                state.pointCoordinates.pop();
+                updatePointsList();
+                updateUI();
+                drawGraph();
+            }
+        }
+
+        function confirmClear() {
+            if (confirm('Clear current boundary?')) {
+                clearBoundary();
+            }
+        }
+
+        function clearBoundary() {
+            state.boundary = [];
+            state.pointCoordinates = [];
+            state.boundaryCompleted = false;
+            state.currentArea = 0;
+            state.mesh = [];
+            state.meshNodes = 0;
+            state.numberOfDrones = 0;
+            state.droneAssignments = {};
+            state.dronePaths = {};
+            state.droneDistances = {};
+            state.performanceResults = {};
+            updateUI();
+            updatePointsList();
+            drawGraph();
+        }
+
+        function newBoundary() {
+            clearBoundary();
+            state.currentDatasetIndex = 0;
+            updateDatasetCounter();
+        }
+
+        function finishBoundary() {
+            if (state.boundary.length < 3) {
+                showAlert('At least 3 points are required.', 'error');
+                return;
+            }
+            state.boundaryCompleted = true;
+            state.editMode = false;
+            updateUI();
+            drawGraph();
+            showAlert('Boundary Completed!', 'success');
+        }
+
+        async function saveBoundary() {
+            try {
+                const data = {
+                    project: 'Drone Swarm Wildfire Boundary Mesh Optimizer',
+                    boundary: state.boundary,
+                    area: state.currentArea,
+                    boundary_points: state.boundary.length,
+                    mesh: state.mesh,
+                    drone_assignments: state.droneAssignments,
+                    drone_paths: state.dronePaths,
+                    drone_distances: state.droneDistances,
+                    performance_results: state.performanceResults,
+                    created_at: new Date().toISOString()
+                };
+
+                if (window.showSaveFilePicker) {
+                    const handle = await window.showSaveFilePicker({
+                        suggestedName: `Data${state.savedFiles.length + 1}.json`,
+                        types: [{ description: 'JSON File', accept: { 'application/json': ['.json'] } }]
+                    });
+
+                    const writable = await handle.createWritable();
+                    await writable.write(JSON.stringify(data, null, 2));
+                    await writable.close();
+
+                    showAlert(`Boundary saved successfully!`, 'success');
+                    state.savedFiles.push(data);
+                    updateDatasetCounter();
+                } else {
+                    // Fallback: download
+                    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `Data${state.savedFiles.length + 1}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+
+                    showAlert('Boundary downloaded (browser does not support direct save)', 'info');
+                    state.savedFiles.push(data);
+                    updateDatasetCounter();
+                }
+            } catch (err) {
+                showAlert('Unable to save file: ' + err.message, 'error');
+            }
+        }
+
+        function loadBoundary() {
+            const input = document.getElementById('fileInput');
+            input.click();
+        }
+
+        document.getElementById('fileInput').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const data = JSON.parse(event.target.result);
+                    state.boundary = data.boundary || [];
+                    state.currentArea = data.area || 0;
+                    state.mesh = data.mesh || [];
+                    state.meshNodes = state.mesh.length;
+                    state.boundaryCompleted = state.boundary.length >= 3;
+                    state.droneAssignments = data.drone_assignments || {};
+                    state.dronePaths = data.drone_paths || {};
+                    state.droneDistances = data.drone_distances || {};
+                    state.performanceResults = data.performance_results || {};
+
+                    state.savedFiles.push(data);
+                    state.currentDatasetIndex = state.savedFiles.length - 1;
+
+                    updateUI();
+                    updatePointsList();
+                    updateDatasetCounter();
+                    drawGraph();
+                    showAlert('Boundary loaded successfully!', 'success');
+                } catch (err) {
+                    showAlert('Error loading file: ' + err.message, 'error');
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        function calculateArea() {
+            if (state.boundary.length < 3) {
+                showAlert('At least 3 points are required.', 'error');
+                return;
+            }
+
+            // Shoelace formula
+            let area = 0;
+            for (let i = 0; i < state.boundary.length; i++) {
+                const j = (i + 1) % state.boundary.length;
+                area += state.boundary[i][0] * state.boundary[j][1];
+                area -= state.boundary[j][0] * state.boundary[i][1];
+            }
+            area = Math.abs(area) / 2;
+
+            state.currentArea = area;
+
+            // Convert to hectares and acres (assuming 100 units = 1 km)
+            const hectares = area * 0.01; // 1 sq unit = 0.01 hectare
+            const acres = hectares * 2.471;
+
+            updateUI();
+            drawGraph();
+            showAlert(`Area calculated: ${area.toFixed(2)} sq units`, 'success');
+        }
+
+        async function generateMesh() {
+            if (!state.boundaryCompleted) {
+                showAlert('Finish boundary first.', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/mesh/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ boundary: state.boundary })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    state.mesh = result.data.mesh || [];
+                    state.meshNodes = state.mesh.length;
+                    updateUI();
+                    drawGraph();
+                    showAlert(`Mesh generated: ${state.meshNodes} nodes`, 'success');
+                } else {
+                    throw new Error('Backend error');
+                }
+            } catch (err) {
+                showAlert('Backend unavailable. Using local mesh generation.', 'info');
+                generateLocalMesh();
+            }
+        }
+
+        function generateLocalMesh() {
+            // Simple grid-based mesh inside polygon
+            state.mesh = [];
+            const step = 5;
+            const minX = Math.min(...state.boundary.map(p => p[0]));
+            const maxX = Math.max(...state.boundary.map(p => p[0]));
+            const minY = Math.min(...state.boundary.map(p => p[1]));
+            const maxY = Math.max(...state.boundary.map(p => p[1]));
+
+            for (let x = minX; x <= maxX; x += step) {
+                for (let y = minY; y <= maxY; y += step) {
+                    if (pointInPolygon(x, y, state.boundary)) {
+                        state.mesh.push([x, y]);
+                    }
+                }
+            }
+
+            state.meshNodes = state.mesh.length;
+            updateUI();
+            drawGraph();
+            showAlert(`Mesh generated locally: ${state.meshNodes} nodes`, 'success');
+        }
+
+        function pointInPolygon(x, y, polygon) {
+            let inside = false;
+            for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+                const xi = polygon[i][0], yi = polygon[i][1];
+                const xj = polygon[j][0], yj = polygon[j][1];
+
+                const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+                if (intersect) inside = !inside;
+            }
+            return inside;
+        }
+
+        function openDroneModal() {
+            if (state.mesh.length === 0) {
+                showAlert('Generate mesh first.', 'error');
+                return;
+            }
+            document.getElementById('droneModal').classList.add('show');
+        }
+
+        function closeDroneModal() {
+            document.getElementById('droneModal').classList.remove('show');
+        }
+
+        function confirmDroneAllocation() {
+            const count = parseInt(document.getElementById('droneInput').value);
+            if (count < 1 || count > 20) {
+                showAlert('Enter a number between 1 and 20.', 'error');
+                return;
+            }
+            allocateDrones(count);
+            closeDroneModal();
+        }
+
+        function allocateDrones(count) {
+            state.numberOfDrones = count;
+            state.droneAssignments = {};
+            state.droneColors = generateDroneColors(count);
+
+            const nodesPerDrone = Math.floor(state.mesh.length / count);
+            const remainder = state.mesh.length % count;
+
+            let nodeIndex = 0;
+            for (let i = 1; i <= count; i++) {
+                const nodes = i <= remainder ? nodesPerDrone + 1 : nodesPerDrone;
+                state.droneAssignments[i] = [];
+                for (let j = 0; j < nodes && nodeIndex < state.mesh.length; j++) {
+                    state.droneAssignments[i].push(nodeIndex);
+                    nodeIndex++;
+                }
+            }
+
+            updateUI();
+            drawGraph();
+            showAlert(`${count} drones allocated.`, 'success');
+        }
+
+        function generateDroneColors(count) {
+            const colors = [
+                '#2196F3', '#FF9800', '#9C27B0', '#F44336', '#00BCD4',
+                '#4CAF50', '#FFD700', '#FF1493', '#00CED1', '#FF6347',
+                '#32CD32', '#DC143C', '#4169E1', '#FF4500', '#8A2BE2'
+            ];
+            return colors.slice(0, count);
+        }
+
+        async function planPaths() {
+            if (Object.keys(state.droneAssignments).length === 0) {
+                showAlert('Allocate drones first.', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/paths/optimize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        mesh: state.mesh,
+                        drone_assignments: state.droneAssignments
+                    })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    state.dronePaths = result.data.paths || {};
+                    state.droneDistances = result.data.distances || {};
+                } else {
+                    throw new Error('Backend error');
+                }
+            } catch (err) {
+                planPathsLocal();
+                return;
+            }
+
+            updateUI();
+            drawGraph();
+            showAlert('Paths planned successfully.', 'success');
+        }
+
+        function planPathsLocal() {
+            // Nearest neighbor algorithm
+            state.dronePaths = {};
+            state.droneDistances = {};
+
+            for (let droneId in state.droneAssignments) {
+                const nodeIndices = state.droneAssignments[droneId];
+                const nodes = nodeIndices.map(i => state.mesh[i]);
+
+                // Nearest neighbor
+                const path = [nodes[0]];
+                const used = new Set([0]);
+
+                while (used.size < nodes.length) {
+                    const current = path[path.length - 1];
+                    let nearest = -1;
+                    let minDist = Infinity;
+
+                    for (let i = 0; i < nodes.length; i++) {
+                        if (!used.has(i)) {
+                            const dist = Math.hypot(nodes[i][0] - current[0], nodes[i][1] - current[1]);
+                            if (dist < minDist) {
+                                minDist = dist;
+                                nearest = i;
+                            }
+                        }
+                    }
+
+                    if (nearest >= 0) {
+                        path.push(nodes[nearest]);
+                        used.add(nearest);
+                    }
+                }
+
+                state.dronePaths[droneId] = path;
+
+                // Calculate distance
+                let dist = 0;
+                for (let i = 1; i < path.length; i++) {
+                    dist += Math.hypot(path[i][0] - path[i-1][0], path[i][1] - path[i-1][1]);
+                }
+                state.droneDistances[droneId] = dist;
+            }
+
+            updateUI();
+            drawGraph();
+            showAlert('Paths planned (local algorithm).', 'success');
+        }
+
+        async function comparePerformance() {
+            const sequential = calculateSequentialDistance();
+            const optimized = Object.values(state.droneDistances).reduce((a, b) => a + b, 0);
+            const reduction = ((sequential - optimized) / sequential * 100) || 0;
+
+            state.performanceResults = {
+                sequential: sequential,
+                optimized: optimized,
+                reduction: reduction
+            };
+
+            updateUI();
+            showAlert(`Performance: ${reduction.toFixed(2)}% reduction`, 'success');
+        }
+
+        function calculateSequentialDistance() {
+            let total = 0;
+            for (let droneId in state.droneAssignments) {
+                const nodeIndices = state.droneAssignments[droneId];
+                let dist = 0;
+                for (let i = 1; i < nodeIndices.length; i++) {
+                    const p1 = state.mesh[nodeIndices[i-1]];
+                    const p2 = state.mesh[nodeIndices[i]];
+                    dist += Math.hypot(p2[0] - p1[0], p2[1] - p1[1]);
+                }
+                total += dist;
+            }
+            return total;
+        }
+
+        function previousDataset() {
+            if (state.currentDatasetIndex > 0) {
+                state.currentDatasetIndex--;
+                loadCurrentDataset();
+            }
+        }
+
+        function nextDataset() {
+            if (state.currentDatasetIndex < state.savedFiles.length - 1) {
+                state.currentDatasetIndex++;
+                loadCurrentDataset();
+            }
+        }
+
+        function loadCurrentDataset() {
+            if (state.savedFiles.length === 0) return;
+
+            const data = state.savedFiles[state.currentDatasetIndex];
+            state.boundary = data.boundary || [];
+            state.currentArea = data.area || 0;
+            state.mesh = [];
+            state.meshNodes = 0;
+            state.droneAssignments = {};
+            state.dronePaths = {};
+            state.droneDistances = {};
+            state.performanceResults = {};
+            state.boundaryCompleted = state.boundary.length >= 3;
+
+            updateUI();
+            updatePointsList();
+            updateDatasetCounter();
+            drawGraph();
+        }
+
+        // ============================================================
+        // UI UPDATES
+        // ============================================================
+        function updateUI() {
+            // Update buttons
+            document.getElementById('undoBtn').disabled = state.boundary.length === 0;
+            document.getElementById('clearBtn').disabled = state.boundary.length === 0;
+            document.getElementById('finishBtn').disabled = state.boundary.length < 3 || state.boundaryCompleted;
+            document.getElementById('saveBtn').disabled = !state.boundaryCompleted;
+            document.getElementById('calcAreaBtn').disabled = state.boundary.length < 3;
+            document.getElementById('generateMeshBtn').disabled = !state.boundaryCompleted;
+            document.getElementById('allocateDronesBtn').disabled = state.mesh.length === 0;
+            document.getElementById('planPathsBtn').disabled = Object.keys(state.droneAssignments).length === 0;
+            document.getElementById('comparePerformanceBtn').disabled = Object.keys(state.dronePaths).length === 0;
+
+            // Update dashboard
+            document.getElementById('boundaryStatus').textContent = state.boundaryCompleted ? 'Completed' : 'Drawing';
+            document.getElementById('areaValue').textContent = state.currentArea.toFixed(2);
+            document.getElementById('hectareValue').textContent = (state.currentArea * 0.01).toFixed(2);
+            document.getElementById('acreValue').textContent = (state.currentArea * 0.01 * 2.471).toFixed(2);
+            document.getElementById('meshCount').textContent = state.meshNodes;
+            document.getElementById('meshStatus').textContent = state.meshNodes > 0 ? 'Generated' : 'Not Generated';
+            document.getElementById('droneCount').textContent = state.numberOfDrones;
+
+            // Update drone allocation list
+            const list = document.getElementById('droneAllocationList');
+            list.innerHTML = '';
+            for (let droneId in state.droneAssignments) {
+                const count = state.droneAssignments[droneId].length;
+                const color = state.droneColors[parseInt(droneId) - 1] || '#000';
+                const item = document.createElement('div');
+                item.style.padding = '5px';
+                item.style.fontSize = '12px';
+                item.innerHTML = `<span class="drone-color" style="background: ${color};"></span>Drone ${droneId}: ${count} nodes`;
+                list.appendChild(item);
+            }
+
+            // Update performance
+            document.getElementById('seqDistance').textContent = state.performanceResults.sequential ? state.performanceResults.sequential.toFixed(2) : '0.00';
+            document.getElementById('optDistance').textContent = state.performanceResults.optimized ? state.performanceResults.optimized.toFixed(2) : '0.00';
+            document.getElementById('pathReduction').textContent = state.performanceResults.reduction ? state.performanceResults.reduction.toFixed(2) + '%' : '0.00%';
+        }
+
+        function updatePointsList() {
+            const list = document.getElementById('pointsList');
+            if (state.boundary.length === 0) {
+                list.innerHTML = '<div style="color: #999; text-align: center; padding: 10px;">No points yet</div>';
+                return;
+            }
+
+            list.innerHTML = state.boundary.map((p, i) => `
+                <div style="padding: 5px; border-bottom: 1px solid #eee;">
+                    Point ${i + 1}: (${p[0].toFixed(2)}, ${p[1].toFixed(2)})
+                </div>
+            `).join('');
+        }
+
+        function updateDatasetCounter() {
+            const counter = document.getElementById('datasetCounter');
+            const current = state.savedFiles.length > 0 ? state.currentDatasetIndex + 1 : 0;
+            const total = state.savedFiles.length;
+            counter.textContent = `${current} / ${total}`;
+
+            document.getElementById('prevBtn').disabled = state.currentDatasetIndex <= 0;
+            document.getElementById('nextBtn').disabled = state.currentDatasetIndex >= state.savedFiles.length - 1;
+        }
+
+        function showAlert(message, type = 'info') {
+            const container = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            container.appendChild(alert);
+
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        // ============================================================
+        // INITIALIZATION
+        // ============================================================
+        window.addEventListener('load', () => {
+            resizeCanvas();
+            updateUI();
+            updateDatasetCounter();
+            drawGraph();
+        });
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+        });
+    </script>
+</body>
+</html>

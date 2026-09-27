@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Wildfire Data</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 8px;
+            padding: 60px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+        .upload-area:hover {
+            border-color: #764ba2;
+            background: #f5f5f5;
+        }
+        .upload-area.dragover {
+            border-color: #764ba2;
+            background: #efefff;
+            transform: scale(1.02);
+        }
+        .upload-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .upload-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .upload-sub {
+            color: #999;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .supported {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        .supported strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .badge {
+            background: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            font-size: 11px;
+            color: #666;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+            font-weight: bold;
+        }
+        .status.success {
+            background: #c8e6c9;
+            color: #2e7d32;
+            border: 1px solid #81c784;
+        }
+        .status.error {
+            background: #ffcdd2;
+            color: #c62828;
+            border: 1px solid #ef5350;
+        }
+        .status.loading {
+            background: #bbdefb;
+            color: #1565c0;
+            border: 1px solid #64b5f6;
+        }
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .error-details {
+            margin-top: 10px;
+            font-size: 12px;
+            opacity: 0.9;
+            max-height: 200px;
+            overflow-y: auto;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 Wildfire Analysis System</h1>
+        <p class="subtitle">Upload boundary data and get instant analysis</p>
+        
+        <div class="upload-area" id="uploadArea" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" onclick="document.getElementById('fileInput').click()">
+            <span class="upload-icon">📤</span>
+            <div class="upload-text">Upload File</div>
+            <div class="upload-sub">Drag & drop or click to browse</div>
+            <input type="file" id="fileInput" onchange="handleFileSelect(event)">
+        </div>
+        
+        <div class="supported">
+            <strong>📁 Supported Formats:</strong>
+            <div class="badges">
+                <span class="badge">JSON</span>
+                <span class="badge">GeoJSON</span>
+                <span class="badge">CSV</span>
+                <span class="badge">TXT</span>
+                <span class="badge">ZIP</span>
+            </div>
+        </div>
+        
+        <div class="status" id="status"></div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const statusDiv = document.getElementById('status');
+        const fileInput = document.getElementById('fileInput');
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadArea.classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadArea.classList.remove('dragover');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadArea.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileSelect({ target: { files: files } });
+            }
+        }
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            uploadFile(file);
+        }
+
+        function uploadFile(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            // Show loading
+            statusDiv.className = 'status loading';
+            statusDiv.innerHTML = '<span class="spinner"></span>Uploading and analyzing...';
+            statusDiv.style.display = 'block';
+            
+            fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    statusDiv.className = 'status success';
+                    statusDiv.innerHTML = `
+                        ✓ Upload Successful!
+                        <div style="font-size: 12px; margin-top: 8px; opacity: 0.9;">
+                            Extracted ${data.points} boundary points
+                            <br>Area: ${data.area.toFixed(2)} sq units
+                            <br>Method: ${data.method}
+                        </div>
+                    `;
+                    
+                    // Redirect to dashboard after 1 second
+                    setTimeout(() => {
+                        window.location.href = '/dashboard?t=' + Date.now();
+                    }, 1000);
+                } else {
+                    statusDiv.className = 'status error';
+                    statusDiv.innerHTML = `
+                        ✗ Upload Failed
+                        <div class="error-details">${data.msg}</div>
+                    `;
+                    if (data.details) {
+                        statusDiv.innerHTML += `<div class="error-details"><strong>Details:</strong><br>${JSON.stringify(data.details, null, 2)}</div>`;
+                    }
+                }
+            })
+            .catch(error => {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `
+                    ✗ Error: ${error.message}
+                    <div class="error-details">${error.stack}</div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>

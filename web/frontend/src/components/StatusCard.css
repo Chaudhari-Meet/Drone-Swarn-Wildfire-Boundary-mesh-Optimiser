@@ -1,0 +1,89 @@
+.status-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid #ccc;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.status-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.status-green {
+  border-left-color: #4ade80;
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.05), transparent);
+}
+
+.status-orange {
+  border-left-color: #fb923c;
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.05), transparent);
+}
+
+.status-blue {
+  border-left-color: #3b82f6;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), transparent);
+}
+
+.status-purple {
+  border-left-color: #a855f7;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), transparent);
+}
+
+.status-red {
+  border-left-color: #ef4444;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), transparent);
+}
+
+.status-icon {
+  font-size: 2.5rem;
+  min-width: 60px;
+  text-align: center;
+}
+
+.status-content {
+  flex: 1;
+}
+
+.status-title {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 5px;
+}
+
+.status-details {
+  font-size: 0.85rem;
+  color: #999;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  .status-card {
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .status-icon {
+    font-size: 2rem;
+    min-width: 50px;
+  }
+
+  .status-value {
+    font-size: 1.5rem;
+  }
+}
