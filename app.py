@@ -231,17 +231,12 @@ def allocate_drones_api():
         
         mesh = current_session['mesh']
         
-        # Divide mesh nodes among drones
-        nodes_per_drone = len(mesh) // num_drones
-        allocation = {}
+        # Balanced round-robin allocation to ensure even distribution
+        allocation = {i: [] for i in range(num_drones)}
         
-        for i in range(num_drones):
-            start_idx = i * nodes_per_drone
-            if i == num_drones - 1:
-                # Last drone gets remaining nodes
-                allocation[i] = mesh[start_idx:]
-            else:
-                allocation[i] = mesh[start_idx:start_idx + nodes_per_drone]
+        for idx, node in enumerate(mesh):
+            drone_id = idx % num_drones  # Round-robin distribution
+            allocation[drone_id].append(node)
         
         current_session['drone_allocation'] = allocation
         current_session['num_drones'] = num_drones
@@ -383,27 +378,45 @@ def point_in_polygon(x, y, polygon):
     return inside
 
 def nearest_neighbor_tsp(nodes):
-    """Nearest neighbor algorithm for TSP with random shuffle for better results"""
+    """Nearest neighbor algorithm for TSP - greedy optimization"""
     if len(nodes) == 0:
         return []
+    if len(nodes) == 1:
+        return list(nodes)
     
-    # Shuffle nodes to avoid bias from input order
-    import random
-    shuffled_nodes = list(nodes)
-    random.shuffle(shuffled_nodes)
+    # Try multiple starting points and pick the best
+    best_path = None
+    best_distance = float('inf')
     
-    # Start from first shuffled node
-    path = [shuffled_nodes[0]]
-    remaining = list(shuffled_nodes[1:])
+    # Try starting from first few nodes (not all to save time)
+    num_trials = min(5, len(nodes))
+    for start_idx in range(num_trials):
+        path = [nodes[start_idx]]
+        remaining = [n for i, n in enumerate(nodes) if i != start_idx]
+        
+        while remaining:
+            current = path[-1]
+            # Find nearest unvisited node
+            nearest_idx = 0
+            min_dist = distance(current, remaining[0])
+            
+            for i in range(1, len(remaining)):
+                dist = distance(current, remaining[i])
+                if dist < min_dist:
+                    min_dist = dist
+                    nearest_idx = i
+            
+            path.append(remaining[nearest_idx])
+            remaining.pop(nearest_idx)
+        
+        # Calculate total distance for this path
+        path_dist = calculate_path_distance(path)
+        
+        if path_dist < best_distance:
+            best_distance = path_dist
+            best_path = path
     
-    while remaining:
-        current = path[-1]
-        # Find nearest unvisited node
-        nearest = min(remaining, key=lambda p: distance(current, p))
-        path.append(nearest)
-        remaining.remove(nearest)
-    
-    return path
+    return best_path
 
 def distance(p1, p2):
     """Euclidean distance between two points"""

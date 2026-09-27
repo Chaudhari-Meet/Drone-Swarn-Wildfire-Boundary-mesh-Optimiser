@@ -765,55 +765,68 @@
             ctx.closePath();
             ctx.stroke();
 
-            // Draw mesh nodes
+            // Draw mesh nodes (colored triangles by drone)
             if (mesh && mesh.length > 0) {
+                // Draw all mesh nodes as purple circles first
                 ctx.fillStyle = '#9c27b0';
                 for (let m of mesh) {
                     const x = offsetX + m[0] * scale;
                     const y = offsetY + m[1] * scale;
                     ctx.beginPath();
-                    ctx.arc(x, y, 3, 0, Math.PI * 2);
+                    ctx.arc(x, y, 4, 0, Math.PI * 2);
                     ctx.fill();
                 }
             }
 
-            // Draw drone paths
+            // Draw drone paths (clean lines, no loop closure)
             if (dronePaths && Object.keys(dronePaths).length > 0) {
                 for (let droneId in dronePaths) {
                     const path = dronePaths[droneId];
                     const color = droneColors[parseInt(droneId) % droneColors.length];
                     
-                    // Draw path lines
-                    ctx.strokeStyle = color;
-                    ctx.lineWidth = 2;
-                    ctx.beginPath();
+                    // Draw path lines (NO closing loop - just connect the nodes in order)
+                    if (path.length > 1) {
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = 2.5;
+                        ctx.setLineDash([5, 3]); // Dashed line
+                        ctx.beginPath();
+                        for (let i = 0; i < path.length; i++) {
+                            const x = offsetX + path[i][0] * scale;
+                            const y = offsetY + path[i][1] * scale;
+                            if (i === 0) ctx.moveTo(x, y);
+                            else ctx.lineTo(x, y);
+                        }
+                        ctx.stroke();
+                        ctx.setLineDash([]); // Reset to solid line
+                    }
+                    
+                    // Draw colored triangles on each path node (drone allocation indicator)
+                    ctx.fillStyle = color;
                     for (let i = 0; i < path.length; i++) {
                         const x = offsetX + path[i][0] * scale;
                         const y = offsetY + path[i][1] * scale;
-                        if (i === 0) ctx.moveTo(x, y);
-                        else ctx.lineTo(x, y);
+                        ctx.beginPath();
+                        ctx.moveTo(x, y - 6);
+                        ctx.lineTo(x - 5, y + 5);
+                        ctx.lineTo(x + 5, y + 5);
+                        ctx.closePath();
+                        ctx.fill();
                     }
-                    // Close the loop
-                    if (path.length > 0) {
-                        const x = offsetX + path[0][0] * scale;
-                        const y = offsetY + path[0][1] * scale;
-                        ctx.lineTo(x, y);
-                    }
-                    ctx.stroke();
                     
-                    // Draw drone start position
+                    // Draw drone start position with larger icon
                     if (path.length > 0) {
                         const x = offsetX + path[0][0] * scale;
                         const y = offsetY + path[0][1] * scale;
                         ctx.fillStyle = color;
+                        ctx.strokeStyle = '#fff';
+                        ctx.lineWidth = 2;
                         ctx.beginPath();
-                        ctx.moveTo(x, y - 8);
+                        ctx.moveTo(x, y - 10);
                         ctx.lineTo(x - 8, y + 8);
                         ctx.lineTo(x + 8, y + 8);
                         ctx.closePath();
                         ctx.fill();
-                        
-                        // Clean triangle, no number (better visualization)
+                        ctx.stroke();
                     }
                 }
             }
