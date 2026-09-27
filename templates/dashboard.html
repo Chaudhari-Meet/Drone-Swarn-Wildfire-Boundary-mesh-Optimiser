@@ -738,8 +738,8 @@
             const offsetX = padding + (canvas.width - padding * 2) / 2 - (minX + w / 2) * scale;
             const offsetY = padding + (canvas.height - padding * 2) / 2 - (minY + h / 2) * scale;
 
-            // Draw filled area
-            ctx.fillStyle = 'rgba(255, 107, 107, 0.15)';
+            // Draw filled area (light orange like fire)
+            ctx.fillStyle = 'rgba(255, 165, 0, 0.3)';  // Light orange fill
             ctx.beginPath();
             for (let i = 0; i < boundary.length; i++) {
                 const p = boundary[i];
@@ -751,8 +751,8 @@
             ctx.closePath();
             ctx.fill();
 
-            // Draw boundary
-            ctx.strokeStyle = '#ff6b6b';
+            // Draw boundary (red fire line - no dots, just solid line)
+            ctx.strokeStyle = '#ff0000';  // Pure red for wildfire
             ctx.lineWidth = 3;
             ctx.beginPath();
             for (let i = 0; i < boundary.length; i++) {
@@ -818,21 +818,8 @@
                 }
             }
 
-            // Draw vertices (show all including closing duplicate)
-            ctx.fillStyle = '#4285f4';
-            for (let i = 0; i < boundary.length; i++) {
-                const p = boundary[i];
-                const x = offsetX + (Array.isArray(p) ? p[0] : p.x) * scale;
-                const y = offsetY + (Array.isArray(p) ? p[1] : p.y) * scale;
-                ctx.beginPath();
-                ctx.arc(x, y, 5, 0, Math.PI * 2);
-                ctx.fill();
-                
-                // Draw vertices (no numbers - cleaner look)
-                if (i < boundary.length - 1 || boundary.length <= 7) {
-                    // Just draw the circle, no text
-                }
-            }
+            // No vertex dots - cleaner wildfire look
+            // Vertices are part of the red boundary line only
         }
 
         function exportJSON() {
