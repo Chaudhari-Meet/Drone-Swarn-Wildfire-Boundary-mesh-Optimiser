@@ -32,7 +32,7 @@ def dashboard():
 
 @app.route('/api/upload', methods=['POST'])
 def upload_file():
-    """Handle file upload"""
+    """Handle file upload - JSON and GeoJSON only"""
     global current_session
     
     print("\n[DEBUG] Upload request received")
@@ -55,14 +55,23 @@ def upload_file():
     filename = file.filename
     ext = os.path.splitext(filename)[1].lower()
     
+    # ONLY ALLOW JSON AND GEOJSON
+    if ext not in ['.json', '.geojson']:
+        print(f"[ERROR] Unsupported format: {ext}")
+        return jsonify({
+            'status': 'error',
+            'msg': f'Unsupported format: {ext}',
+            'details': {'error': f'Unsupported format: {ext}', 'method': 'unsupported'}
+        }), 400
+    
     # Save file
     filepath = os.path.join(UPLOAD_DIR, f"{int(datetime.now().timestamp())}_{filename}")
     file.save(filepath)
     
     print(f"\n[UPLOAD] File: {filename}, Type: {ext}")
     
-    # Extract boundary
-    boundary, info = extract_from_file(filepath, ext)
+    # Extract boundary (only JSON now)
+    boundary, info = extract_json(filepath)
     
     if not boundary:
         print(f"[ERROR] {info.get('error', 'Unknown error')}")
@@ -116,6 +125,8 @@ def generate_mesh_api():
         return jsonify({'status': 'error', 'msg': 'No boundary data'}), 400
     
     try:
+        import time
+        
         data = request.get_json() or {}
         spacing_input = float(data.get('spacing', 15))
         
@@ -137,6 +148,9 @@ def generate_mesh_api():
         # Check if coordinates are geographic (lat/lon)
         is_geographic = (all(-180 <= x <= 180 for x in xs) and 
                         all(-90 <= y <= 90 for y in ys))
+        
+        # === START TIMING ===
+        start_time = time.time()
         
         if is_geographic:
             # For geographic coordinates, convert spacing from meters to degrees
@@ -179,17 +193,24 @@ def generate_mesh_api():
             
             spacing_used = spacing
         
+        # === END TIMING ===
+        mesh_generation_time = time.time() - start_time
+        
         current_session['mesh'] = mesh
         current_session['mesh_spacing'] = spacing_used
+        current_session['mesh_generation_time'] = mesh_generation_time
         
         print(f"[MESH] Generated {len(mesh)} nodes with spacing {spacing_used}")
+        print(f"[MESH] Generation time: {mesh_generation_time*1000:.2f} ms")
+        print(f"[MESH] Complexity: O(n) where n={len(mesh)}")
         
         return jsonify({
             'status': 'success',
             'mesh': mesh,
             'count': len(mesh),
             'spacing_used': spacing_used,
-            'is_geographic': is_geographic
+            'is_geographic': is_geographic,
+            'generation_time_ms': mesh_generation_time * 1000
         }), 200
         
     except Exception as e:
@@ -241,54 +262,105 @@ def allocate_drones_api():
 
 @app.route('/api/plan-paths', methods=['POST'])
 def plan_paths_api():
-    """Plan optimized paths for each drone"""
+    """Plan optimized paths for each drone with baseline comparison"""
     if not current_session.get('drone_allocation'):
         return jsonify({'status': 'error', 'msg': 'Allocate drones first'}), 400
     
     try:
+        import time
+        
         allocation = current_session['drone_allocation']
-        paths = {}
-        distances = {}
+        
+        # Optimized paths (Nearest Neighbor)
+        paths_optimized = {}
+        distances_optimized = {}
+        times_optimized = {}
+        
+        # Baseline paths (Sequential)
+        paths_baseline = {}
+        distances_baseline = {}
+        times_baseline = {}
+        
+        # Area coverage
         areas = {}
         
         for drone_id, nodes in allocation.items():
             if len(nodes) == 0:
                 continue
             
-            # Nearest neighbor path
-            path = nearest_neighbor_tsp(nodes)
+            # === OPTIMIZED PATH (Nearest Neighbor) ===
+            start_time = time.time()
+            path_opt = nearest_neighbor_tsp(nodes)
+            time_opt = time.time() - start_time
+            dist_opt = calculate_path_distance(path_opt)
             
-            # Calculate distance
-            dist = calculate_path_distance(path)
+            paths_optimized[drone_id] = path_opt
+            distances_optimized[drone_id] = dist_opt
+            times_optimized[drone_id] = time_opt
             
-            # Calculate area covered by this drone
-            if len(path) >= 3:
-                area = shoelace_area(path)
+            # === BASELINE PATH (Sequential) ===
+            start_time = time.time()
+            path_seq = list(nodes)  # Sequential order as generated
+            time_seq = time.time() - start_time
+            dist_seq = calculate_path_distance(path_seq)
+            
+            paths_baseline[drone_id] = path_seq
+            distances_baseline[drone_id] = dist_seq
+            times_baseline[drone_id] = time_seq
+            
+            # === AREA COVERAGE ===
+            if len(path_opt) >= 3:
+                area = shoelace_area(path_opt)
             else:
                 area = 0
-            
-            paths[drone_id] = path
-            distances[drone_id] = dist
             areas[drone_id] = area
             
-            print(f"[PATH] Drone {drone_id}: {len(path)} nodes, distance {dist:.2f}, area {area:.2f}")
+            # === PERFORMANCE METRICS ===
+            reduction_pct = ((dist_seq - dist_opt) / dist_seq * 100) if dist_seq > 0 else 0
+            
+            print(f"[PATH] Drone {drone_id}:")
+            print(f"  Nodes: {len(nodes)}")
+            print(f"  Sequential: {dist_seq:.2f} m (time: {time_seq*1000:.2f} ms)")
+            print(f"  Optimized:  {dist_opt:.2f} m (time: {time_opt*1000:.2f} ms)")
+            print(f"  Reduction:  {reduction_pct:.2f}%")
+            print(f"  Area:       {area:.2f} m²")
         
-        current_session['drone_paths'] = paths
-        current_session['drone_distances'] = distances
+        # Store all results
+        current_session['drone_paths_optimized'] = paths_optimized
+        current_session['drone_paths_baseline'] = paths_baseline
+        current_session['drone_distances_optimized'] = distances_optimized
+        current_session['drone_distances_baseline'] = distances_baseline
+        current_session['drone_times_optimized'] = times_optimized
+        current_session['drone_times_baseline'] = times_baseline
         current_session['drone_areas'] = areas
         
-        total_distance = sum(distances.values())
+        # Calculate totals
+        total_dist_opt = sum(distances_optimized.values())
+        total_dist_seq = sum(distances_baseline.values())
+        total_reduction = ((total_dist_seq - total_dist_opt) / total_dist_seq * 100) if total_dist_seq > 0 else 0
+        
+        print(f"\n[TOTAL] Sequential: {total_dist_seq:.2f} m")
+        print(f"[TOTAL] Optimized:  {total_dist_opt:.2f} m")
+        print(f"[TOTAL] Reduction:  {total_reduction:.2f}%\n")
         
         return jsonify({
             'status': 'success',
-            'paths': {str(k): v for k, v in paths.items()},
-            'distances': {str(k): v for k, v in distances.items()},
+            'paths_optimized': {str(k): v for k, v in paths_optimized.items()},
+            'paths_baseline': {str(k): v for k, v in paths_baseline.items()},
+            'distances_optimized': {str(k): v for k, v in distances_optimized.items()},
+            'distances_baseline': {str(k): v for k, v in distances_baseline.items()},
+            'times_optimized': {str(k): v for k, v in times_optimized.items()},
+            'times_baseline': {str(k): v for k, v in times_baseline.items()},
             'areas': {str(k): v for k, v in areas.items()},
-            'total_distance': total_distance
+            'total_distance_optimized': total_dist_opt,
+            'total_distance_baseline': total_dist_seq,
+            'total_reduction_percent': total_reduction
         }), 200
         
     except Exception as e:
         print(f"[ERROR] Path planning: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
 def point_in_polygon(x, y, polygon):

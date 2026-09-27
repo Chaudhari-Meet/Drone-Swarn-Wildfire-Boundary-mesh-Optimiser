@@ -583,36 +583,90 @@
             .then(r => r.json())
             .then(res => {
                 if (res.status === 'success') {
-                    dronePaths = res.paths;
+                    dronePaths = res.paths_optimized;
                     document.getElementById('pathStatus').innerHTML = `<div style="color: green; margin-top: 10px;">✓ Paths optimized</div>`;
                     
-                    // Show path stats
-                    let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">';
-                    let totalDist = 0;
-                    for (let droneId in res.distances) {
-                        const dist = res.distances[droneId];
+                    // Show comparison stats
+                    let html = '<h3 style="margin: 20px 0 15px 0; color: #667eea;">📊 Performance Comparison</h3>';
+                    html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px;">';
+                    
+                    let totalOpt = 0;
+                    let totalBase = 0;
+                    
+                    for (let droneId in res.distances_optimized) {
+                        const distOpt = res.distances_optimized[droneId];
+                        const distBase = res.distances_baseline[droneId];
+                        const timeOpt = (res.times_optimized[droneId] * 1000).toFixed(2);
+                        const timeBase = (res.times_baseline[droneId] * 1000).toFixed(2);
                         const area = res.areas[droneId];
-                        totalDist += dist;
+                        const reduction = distBase > 0 ? ((distBase - distOpt) / distBase * 100).toFixed(2) : 0;
                         
-                        // Format distance based on magnitude
-                        let distStr = dist > 1000 ? `${(dist/1000).toFixed(2)} km` : `${dist.toFixed(1)} m`;
+                        totalOpt += distOpt;
+                        totalBase += distBase;
+                        
+                        // Format distances
+                        let distOptStr = distOpt > 1000 ? `${(distOpt/1000).toFixed(2)} km` : `${distOpt.toFixed(1)} m`;
+                        let distBaseStr = distBase > 1000 ? `${(distBase/1000).toFixed(2)} km` : `${distBase.toFixed(1)} m`;
                         let areaStr = area > 10000 ? `${(area/10000).toFixed(4)} ha` : `${area.toFixed(1)} m²`;
                         
-                        html += `<div style="background: linear-gradient(135deg, ${droneColors[parseInt(droneId) % droneColors.length]}, ${droneColors[(parseInt(droneId) + 1) % droneColors.length]}); color: white; padding: 20px; border-radius: 8px; text-align: center;">
-                            <div style="font-size: 12px; opacity: 0.9;">Drone ${parseInt(droneId) + 1}</div>
-                            <div style="font-size: 24px; font-weight: bold; margin: 8px 0;">${distStr}</div>
-                            <div style="font-size: 11px; opacity: 0.8;">Distance</div>
-                            <div style="font-size: 14px; margin-top: 8px;">Coverage: ${areaStr}</div>
+                        html += `<div style="background: linear-gradient(135deg, ${droneColors[parseInt(droneId) % droneColors.length]}, ${droneColors[(parseInt(droneId) + 1) % droneColors.length]}); color: white; padding: 20px; border-radius: 8px;">
+                            <div style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">Drone ${parseInt(droneId) + 1}</div>
+                            <div style="font-size: 11px; opacity: 0.9; margin-bottom: 5px;">Sequential: ${distBaseStr}</div>
+                            <div style="font-size: 11px; opacity: 0.9; margin-bottom: 5px;">Optimized: ${distOptStr}</div>
+                            <div style="font-size: 16px; font-weight: bold; margin: 8px 0;">↓ ${reduction}% reduction</div>
+                            <div style="font-size: 10px; opacity: 0.8;">Coverage: ${areaStr}</div>
+                            <div style="font-size: 9px; opacity: 0.7; margin-top: 5px;">NN Time: ${timeOpt} ms</div>
                         </div>`;
                     }
                     
-                    let totalDistStr = totalDist > 1000 ? `${(totalDist/1000).toFixed(2)} km` : `${totalDist.toFixed(1)} m`;
+                    // Total summary
+                    let totalOptStr = totalOpt > 1000 ? `${(totalOpt/1000).toFixed(2)} km` : `${totalOpt.toFixed(1)} m`;
+                    let totalBaseStr = totalBase > 1000 ? `${(totalBase/1000).toFixed(2)} km` : `${totalBase.toFixed(1)} m`;
+                    let totalReduction = totalBase > 0 ? ((totalBase - totalOpt) / totalBase * 100).toFixed(2) : 0;
                     
                     html += `<div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 12px; opacity: 0.9;">Total Distance</div>
-                        <div style="font-size: 24px; font-weight: bold; margin: 8px 0;">${totalDistStr}</div>
-                        <div style="font-size: 11px; opacity: 0.8;">All drones combined</div>
+                        <div style="font-size: 12px; opacity: 0.9; margin-bottom: 5px;">TOTAL DISTANCE</div>
+                        <div style="font-size: 11px; opacity: 0.85;">Sequential: ${totalBaseStr}</div>
+                        <div style="font-size: 11px; opacity: 0.85; margin-bottom: 5px;">Optimized: ${totalOptStr}</div>
+                        <div style="font-size: 22px; font-weight: bold; margin-top: 8px;">↓ ${totalReduction}%</div>
+                        <div style="font-size: 10px; opacity: 0.8; margin-top: 5px;">Overall Improvement</div>
                     </div></div>`;
+                    
+                    // Table for IEEE paper data
+                    html += '<h3 style="margin: 30px 0 15px 0; color: #667eea;">📋 Data for IEEE Paper (Table III)</h3>';
+                    html += '<table class="data-table"><thead><tr>';
+                    html += '<th>Drone ID</th><th>Nodes</th><th>Baseline Dist (m)</th><th>Optimized Dist (m)</th><th>Reduction (%)</th><th>NN Time (ms)</th><th>Coverage (m²)</th>';
+                    html += '</tr></thead><tbody>';
+                    
+                    for (let droneId in res.distances_optimized) {
+                        const nodes = dronePaths[droneId].length;
+                        const distOpt = res.distances_optimized[droneId].toFixed(2);
+                        const distBase = res.distances_baseline[droneId].toFixed(2);
+                        const timeOpt = (res.times_optimized[droneId] * 1000).toFixed(2);
+                        const area = res.areas[droneId].toFixed(2);
+                        const reduction = distBase > 0 ? ((distBase - distOpt) / distBase * 100).toFixed(2) : 0;
+                        
+                        html += `<tr>
+                            <td>Drone ${parseInt(droneId) + 1}</td>
+                            <td>${nodes}</td>
+                            <td>${distBase}</td>
+                            <td>${distOpt}</td>
+                            <td>${reduction}</td>
+                            <td>${timeOpt}</td>
+                            <td>${area}</td>
+                        </tr>`;
+                    }
+                    
+                    html += `<tr style="background: #f0f0f0; font-weight: bold;">
+                        <td>TOTAL</td>
+                        <td>—</td>
+                        <td>${totalBase.toFixed(2)}</td>
+                        <td>${totalOpt.toFixed(2)}</td>
+                        <td>${totalReduction}</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></tbody></table>`;
+                    
                     document.getElementById('pathInfo').innerHTML = html;
                     document.getElementById('pathInfo').style.display = 'block';
                     drawBoundary();
