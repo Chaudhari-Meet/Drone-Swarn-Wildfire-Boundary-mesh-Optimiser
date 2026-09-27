@@ -813,12 +813,7 @@
                         ctx.closePath();
                         ctx.fill();
                         
-                        // Draw drone number
-                        ctx.fillStyle = 'white';
-                        ctx.font = 'bold 10px Arial';
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'middle';
-                        ctx.fillText(parseInt(droneId) + 1, x, y + 2);
+                        // Clean triangle, no number (better visualization)
                     }
                 }
             }
@@ -833,14 +828,9 @@
                 ctx.arc(x, y, 5, 0, Math.PI * 2);
                 ctx.fill();
                 
-                // Draw vertex number
+                // Draw vertices (no numbers - cleaner look)
                 if (i < boundary.length - 1 || boundary.length <= 7) {
-                    ctx.fillStyle = 'white';
-                    ctx.font = 'bold 10px Arial';
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(i + 1, x, y);
-                    ctx.fillStyle = '#4285f4';
+                    // Just draw the circle, no text
                 }
             }
         }

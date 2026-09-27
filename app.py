@@ -477,18 +477,34 @@ def extract_json(filepath):
             features = data.get('features', [])
             if features and 'geometry' in features[0]:
                 geom = features[0]['geometry']
+                
+                # Handle Polygon
                 if geom['type'] == 'Polygon':
                     coords = geom['coordinates'][0]
                     boundary = [[float(c[0]), float(c[1])] for c in coords]
-                    return boundary, {'method': 'geojson_featurecollection', 'points': len(boundary)}
+                    return boundary, {'method': 'geojson_featurecollection_polygon', 'points': len(boundary)}
+                
+                # Handle MultiPolygon - take first polygon
+                elif geom['type'] == 'MultiPolygon':
+                    coords = geom['coordinates'][0][0]  # First polygon, outer ring
+                    boundary = [[float(c[0]), float(c[1])] for c in coords]
+                    return boundary, {'method': 'geojson_featurecollection_multipolygon', 'points': len(boundary)}
         
         # Check for GeoJSON Feature
         if isinstance(data, dict) and data.get('type') == 'Feature':
             geom = data.get('geometry', {})
+            
+            # Handle Polygon
             if geom.get('type') == 'Polygon':
                 coords = geom['coordinates'][0]
                 boundary = [[float(c[0]), float(c[1])] for c in coords]
-                return boundary, {'method': 'geojson_feature', 'points': len(boundary)}
+                return boundary, {'method': 'geojson_feature_polygon', 'points': len(boundary)}
+            
+            # Handle MultiPolygon
+            elif geom.get('type') == 'MultiPolygon':
+                coords = geom['coordinates'][0][0]
+                boundary = [[float(c[0]), float(c[1])] for c in coords]
+                return boundary, {'method': 'geojson_feature_multipolygon', 'points': len(boundary)}
         
         # Look for 'boundary' key
         if 'boundary' in data and isinstance(data['boundary'], list):

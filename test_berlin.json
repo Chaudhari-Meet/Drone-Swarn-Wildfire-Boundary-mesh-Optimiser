@@ -1,0 +1,27 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [13.404195, 52.540402],
+            [13.405134, 52.539287],
+            [13.406402, 52.536779],
+            [13.407683, 52.53366],
+            [13.406103, 52.531159],
+            [13.404705, 52.533301],
+            [13.403528, 52.540212],
+            [13.404195, 52.540402]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Berlin Wildfire Test Area",
+        "description": "Small test polygon in Berlin coordinates for IEEE paper"
+      }
+    }
+  ]
+}
