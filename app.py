@@ -298,9 +298,9 @@ def plan_paths_api():
             distances_optimized[drone_id] = dist_opt
             times_optimized[drone_id] = time_opt
             
-            # === BASELINE PATH (Sequential) ===
+            # === BASELINE PATH (Sequential - as generated/allocated) ===
             start_time = time.time()
-            path_seq = list(nodes)  # Sequential order as generated
+            path_seq = list(nodes)  # Sequential order as allocated (no optimization)
             time_seq = time.time() - start_time
             dist_seq = calculate_path_distance(path_seq)
             
@@ -383,12 +383,18 @@ def point_in_polygon(x, y, polygon):
     return inside
 
 def nearest_neighbor_tsp(nodes):
-    """Nearest neighbor algorithm for TSP"""
+    """Nearest neighbor algorithm for TSP with random shuffle for better results"""
     if len(nodes) == 0:
         return []
     
-    path = [nodes[0]]
-    remaining = list(nodes[1:])
+    # Shuffle nodes to avoid bias from input order
+    import random
+    shuffled_nodes = list(nodes)
+    random.shuffle(shuffled_nodes)
+    
+    # Start from first shuffled node
+    path = [shuffled_nodes[0]]
+    remaining = list(shuffled_nodes[1:])
     
     while remaining:
         current = path[-1]
